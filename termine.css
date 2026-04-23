@@ -1,4 +1,7 @@
 .darkmode {
-    background-color: #242121;
-    color: #a59a9a;
+    --base-color: #191919;
+    --base-variant: #a59a9a;
+    --text-color : #111528;
+    --secondary-color:#a4a5b8;
 }
+
