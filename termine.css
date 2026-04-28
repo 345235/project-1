@@ -1,7 +1,32 @@
 .darkmode {
-    --base-color: #191919;
-    --base-variant: #a59a9a;
-    --text-color : #111528;
-    --secondary-color:#a4a5b8;
+    --base-color: #2d2727;
+    --base-variant: #ffffff;
+    --text-color : #5906d58f;
+    --secondary-color:#5bb134;
+    --primary-color: #533030;
+    --accent-color:#228bc4;
 }
 
+body {
+    background-color: var(--base-color);
+    color: var(--text-color);
+   
+
+}
+
+.lightmode {
+    --base-color: #f3f1f1;
+    --base-variant: #291e1e;
+    --text-color : #488a97;
+    --secondary-color:#5fb936;
+    --primary-color: #533030;
+    --accent-color:#155f9b;
+}
+
+body {
+    background-color: var(--base-color);
+    color: var(--text-color);
+}
+svg {
+    fill :var(--secondary-color);
+}
