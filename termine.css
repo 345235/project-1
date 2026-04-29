@@ -1,9 +1,9 @@
 .darkmode {
     --base-color: #2d2727;
-    --base-variant: #ffffff;
+    --base-variant: #000000;
     --text-color : #5906d58f;
     --secondary-color:#5bb134;
-    --primary-color: #533030;
+    --primary-color: #e7e5e5;
     --accent-color:#228bc4;
 }
 
@@ -16,11 +16,12 @@ body {
 
 .lightmode {
     --base-color: #f3f1f1;
-    --base-variant: #291e1e;
-    --text-color : #488a97;
-    --secondary-color:#5fb936;
-    --primary-color: #533030;
+    --base-variant: #ffffff;
+    --text-color : #30b8d3;
+    --secondary-color:#5bb134;
+    --primary-color: #000000;
     --accent-color:#155f9b;
+
 }
 
 body {
@@ -30,3 +31,31 @@ body {
 svg {
     fill :var(--secondary-color);
 }
+#theme-switch {
+   height: 50px;
+   width: 50px;
+    border-radius: 50%;
+    padding: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: var(--primary-color);
+}
+#theme-switch svg {
+    fill: var(--base-variant);
+}
+#theme-switch svg:first-child {
+    display: none;
+}
+.darkmode #theme-switch svg:last-child {
+    display: none;
+}
+.darkmode #theme-switch svg:first-child {
+    display: block;
+}
+    
+    
