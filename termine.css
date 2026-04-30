@@ -2,9 +2,11 @@
     --base-color: #2d2727;
     --base-variant: #000000;
     --text-color : #5906d58f;
+    --text-color2 : #461488;
     --secondary-color:#5bb134;
     --primary-color: #e7e5e5;
     --accent-color:#228bc4;
+    --hover-color: #8529ff;
 }
 
 body {
@@ -21,6 +23,8 @@ body {
     --secondary-color:#5bb134;
     --primary-color: #000000;
     --accent-color:#155f9b;
+    --text-color2 : #a119ad;
+    --hover-color: #8529ff;
 
 }
 
@@ -57,5 +61,10 @@ svg {
 .darkmode #theme-switch svg:first-child {
     display: block;
 }
-    
-    
+
+.lightmode #theme-switch svg:first-child {
+    display: none;
+}
+    .lightmode #theme-switch svg:last-child {
+    display: block;
+}
