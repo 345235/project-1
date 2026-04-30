@@ -12,6 +12,8 @@
 <body >
     <link rel = "stylesheet" href = "termine.css">
     <link rel="stylesheet" href="darkmod.js" type="text/javascript">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylsheet" href="kalender.js" type="text/javascript">
 </body >
    <button id="theme-switch"
    class="theme-switch" 
@@ -58,12 +60,17 @@ margin-bottom: 45px;
     text-decoration: underline;
   }
 </style>
-<h1 class="Termine">termine</h1>
+<p class="Termine">termine</p>
 <style>.Termine
 {
   text-align: left;
   color: var(--text-color2);
-  font-size: 25px;
+  font-size: 22px;
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  text-decoration: none;
+  transition: color 0.5s ease, text-decoration 0.5s ease;
+  
+
 
   
 
@@ -74,11 +81,30 @@ margin-bottom: 45px;
 </style>
 <script src="darkmod.js"></script>
 </html>
+<body>
   
+<div class="kalender">
+  <div class="header">
+    <button id="prevBtn"> 
+       <i class="fa-solid fa-chevron-left"></i>
+      </button>   
+    <div class="month-year" id="monthYear"></div>
+      <button id="nextBtn"> 
+      <i class="fa-solid fa-chevron-right"></i>
+       </button>
+       </div>
   
+    <div class="days">
+      <div class="day">Mo</div>
+      <div class="day">Di</div>
+      <div class="day">Mi</div>
+      <div class="day">Do</div>
+      <div class="day">Fr</div> 
+      <div class="day">Sa</div>
+      <div class="day">So</div>
+      </div>
 
-  
-
-   
-
+      <div class="dates" id="dates"></div>
+      </div>
+  <style>  
   

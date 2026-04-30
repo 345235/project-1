@@ -2,7 +2,7 @@
     --base-color: #2d2727;
     --base-variant: #000000;
     --text-color : #5906d58f;
-    --text-color2 : #461488;
+    --text-color2 : #72189b;
     --secondary-color:#5bb134;
     --primary-color: #e7e5e5;
     --accent-color:#228bc4;
@@ -62,9 +62,61 @@ svg {
     display: block;
 }
 
-.lightmode #theme-switch svg:first-child {
-    display: none;
+.Termine {
+    color: var(--text-color2);
+    text-decoration: none;
+    
 }
-    .lightmode #theme-switch svg:last-child {
-    display: block;
+.Termine:visited {
+    color: var(--text-color2);
+}
+.Termine:active {
+    color: var(--text-color2);
+}
+
+.kalender {
+    width: 360px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+}
+.kalender {
+    width: 360px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    
+    
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+.header button {
+    display: flex;
+    align-items:center; 
+    justify-content: center;
+    border-radius: 50%;
+    border: none;
+    background: #ffffff;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    
+}
+.day { 
+ display: grid;
+ grid-template-columns: repeat(7,1fr);
 }
