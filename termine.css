@@ -88,7 +88,7 @@ svg {
 
 }
 .kalender {
-    width: 360px;
+    width: 500px;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -130,4 +130,37 @@ svg {
     color: var(--kalender-color);
     font-weight: 500;
 }
+.dates {
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    gap: 5px;
+}
+
+
+.date {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+     padding: 10px;
+     margin: auto;
+     cursor: pointer;
+     font-weight: 600;
+     border-radius: 50%;
+     width: 40px;
+     height: 40px;
+     transition: 0.2s;
+}
+.date:hover,
+.date:active {
+    background-color: #ff5869;
+    color :#ffffff;
+}
+
+   
+
+    
+
+
+
 
