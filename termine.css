@@ -5,9 +5,9 @@
     --text-color2 : #72189b;
     --secondary-color:#5bb134;
     --primary-color: #e7e5e5;
-    --accent-color:#228bc4;
+    --accent-color:#8a14ceb9;
     --hover-color: #8529ff;
-    --kalender-color:#8529ff;
+    --kalender-color:#000000;
 }
 
 body {
@@ -87,6 +87,7 @@ svg {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 
 }
+
 .kalender {
     width: 500px;
     height: auto;
@@ -108,6 +109,12 @@ svg {
     align-items: center;
     padding: 10px;
 }
+
+.monthYear {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--kalender-color);
+} 
 .header button {
     display: flex;
     align-items:center; 
@@ -160,15 +167,23 @@ svg {
 }
 
 .date.active {
-    background-color: var(--accent-color);
+    background-color: #ff5869;
+
     color: #ffffff;
     font-weight: bold;
 }
 
 .date.inactive {
     color: #cccccc;
-    cursor: default;
+    cursor: pointer;
 }
+
+.date.inactive:hover {
+    background-color: #ff6f7d;
+    color: #5c5656;
+    
+}
+
 
    
 
