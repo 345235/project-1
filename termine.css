@@ -3,11 +3,15 @@
     --base-variant: #000000;
     --text-color : #5906d58f;
     --text-color2 : #72189b;
+    --text-color3 : #779899;
     --secondary-color:#5bb134;
     --primary-color: #e7e5e5;
     --accent-color:#8a14ceb9;
     --hover-color: #8529ff;
+    --hover2-color: #b5b5b5;
     --kalender-color:#000000;
+    --info-color: #ffffff;
+   
 }
 
 body {
@@ -21,12 +25,17 @@ body {
     --base-color: #f3f1f1;
     --base-variant: #ffffff;
     --text-color : #30b8d3;
+    --text-color2 : #2293a7;
+    --text-color3 : #2293a7;
     --secondary-color:#5bb134;
     --primary-color: #000000;
     --accent-color:#155f9b;
-    --text-color2 : #2293a7;
     --hover-color: #2ab5cd;
-    --kalender-color:#177681;
+    --hover2-color: #383737;
+    --kalender-color: #177681;
+    --info-color: #000000;
+
+
 
 }
 
@@ -64,17 +73,6 @@ svg {
     display: block;
 }
 
-.Termine {
-    color: var(--text-color2);
-    text-decoration: none;
-    
-}
-.Termine:visited {
-    color: var(--text-color2);
-}
-.Termine:active {
-    color: var(--text-color2);
-}
 
 .kalender {
     width: 360px;
@@ -85,6 +83,7 @@ svg {
     background: #ffffff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    
 
 }
 
@@ -125,7 +124,7 @@ svg {
     cursor: pointer;
     width: 40px;
     height: 40px;
-   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+   box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
     
 }
 .days { 
@@ -168,7 +167,6 @@ svg {
 
 .date.active {
     background-color: #ff5869;
-
     color: #ffffff;
     font-weight: bold;
 }
@@ -184,11 +182,40 @@ svg {
     
 }
 
+.info {
+    text-align: center;
+    font-family: Arial;
+    color: var(--info-color);
+    text-decoration: underline;
+    justify-content: center;
+    font-size: 13px;  
 
+}
+.info2 {
+    text-align: center;
+    font-family: Arial;
+    color: var(--info-color);
+    text-decoration: underline;
+    font-size: 13px;  
+}
+
+.info:hover{
+ color: var(--hover2-color);
+}
+
+.info2:hover{
+color: var(--hover2-color);
+}
+
+
+.Heutige-termine{
+    font-size: 20px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: var(--text-color3);
+}
+
+.Termine2 {
+ text-align: center;
+ font-size: 35px;
+}
    
-
-    
-
-
-
-
