@@ -20,6 +20,7 @@ body {
     --kalender-color:#000000;
     --info-color: #ffffff;
     --line-color: #c9c9c9;
+    --theme-color: #000000;
 
 }
 
@@ -38,6 +39,8 @@ body {
     --kalender-color: #177681;
     --info-color: #000000;
     --line-color: #a8a8a8;
+    --theme-color: #ffffff;
+
 
 
 
@@ -69,8 +72,9 @@ html{
     top: 20px;
     right: 20px;
     background-color: var(--primary-color);
+    color: var(--theme-color);
     cursor: pointer;
-    z-index: 1000;
+    z-index: 1000; 
 }
 
 @media (max-width: 480px) {
@@ -349,3 +353,8 @@ border: none;
 font: inherit;
 }
 
+
+#sidebar svg {
+    fill: var(--text-color);
+    flex-shrink: 0;
+}
