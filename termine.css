@@ -433,3 +433,10 @@ font: inherit;
 #toggle-btn:hover {
     background-color: var(--hover3-color);
 }
+
+.info a{
+    text-align: center;
+    font-size: 10px;
+    text-decoration: none;
+
+}
