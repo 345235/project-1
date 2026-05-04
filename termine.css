@@ -98,6 +98,13 @@ html{
     display: block;
 }
 
+.darkmode2 {
+    fill: #ffffff !important;
+}
+.lightmode2 {
+    fill: #000000 !important;
+}
+
 
 .kalender {
     width: 500px;
@@ -342,7 +349,8 @@ color: var(--hover2-color);
     color: var(--text-color);
     display: flex;
     align-items: center;
-    gap: 1em;
+    gap: 0.5em;
+    
 }
 .dropdown-btn {
 cursor: pointer;
@@ -357,4 +365,15 @@ font: inherit;
 #sidebar svg {
     fill: var(--text-color);
     flex-shrink: 0;
+}
+#sidebar a span, #sidebar .dropdown-btn span {
+    flex-grow: 1;
+}
+#sidebar a :hover, #sidebar .dropdown-btn:hover {
+    background-color: var(--hover-color);
+}
+   
+#sidebar .submenu{ 
+    display: grid;
+    transition:300ms ease-in-out;
 }
