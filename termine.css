@@ -28,13 +28,13 @@ body {
 
 
 .lightmode {
-    --base-color: #f3f1f1;
+    --base-color: #f3f1f1 !important;
     --base-variant: #ffffff;
     --text-color : #30b8d3;
     --text-color2 : #2293a7;
     --text-color3 : #2293a7;
     --sidbartext-color:#20a8f7; 
-    --secondary-color:#5bb134;
+    --secondary-color:#5bb134;          
     --primary-color: #000000;
     --accent-color:#15c0b7;
     --hover-color: #2ab5cd;
@@ -126,7 +126,7 @@ html{
 @media (max-width: 1024px) {
     .kalender {
         width: 90%;
-        max-width: 500px;
+        max-width: 1024px;
     }
 }
 
@@ -436,7 +436,14 @@ font: inherit;
 
 .info a{
     text-align: center;
-    font-size: 10px;
-    text-decoration: none;
+    font-size: 13px;
+    text-decoration: var(--base-color)
 
+}
+.info{
+    text-decoration: none;
+}
+
+.info:hover a{
+    color: var(--hover-color);
 }
