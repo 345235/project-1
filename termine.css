@@ -81,14 +81,14 @@ html{
     z-index: 1000; 
 }
 
-@media (max-width: 480px) {
+
     #theme-switch {
         height: 45px;
         width: 45px;
         top: 15px;
         right: 15px;
     }
-}
+
 #theme-switch svg {
     fill: var(--base-variant);
 }
@@ -123,28 +123,28 @@ html{
     margin-top:350px;
 }
 
-@media (max-width: 1024px) {
+
     .kalender {
         width: 90%;
         max-width: 500px;
     }
-}
 
-@media (max-width: 768px) {
+
+
     .kalender {
         width: 85%;
         margin-top: 250px;
     }
-}
 
-@media (max-width: 480px) {
+
+
     .kalender {
         width: 95%;
         margin-top: 180px;
         padding: 8px;
         border-radius: 15px;
     }
-}
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -158,17 +158,16 @@ html{
     color: var(--kalender-color);
 }
 
-@media (max-width: 768px) {
+
     .monthYear {
         font-size: 1.3em;
     }
-}
 
-@media (max-width: 480px) {
+
     .monthYear {
         font-size: 1.1em;
     }
-} 
+
 .header button {
     display: flex;
     align-items:center; 
@@ -183,12 +182,12 @@ html{
     
 }
 
-@media (max-width: 480px) {
+
     .header button {
         width: 36px;
         height: 36px;
     }
-}
+
 .days { 
  display: grid;
  grid-template-columns: repeat(7,1fr);
@@ -222,13 +221,13 @@ html{
      transition: 0.2s;
 }
 
-@media (max-width: 480px) {
+
     .date {
         width: 18px;
         height: 9px;
         padding: 8px;
     }
-}
+
 .date:hover,
 .date:active {
     background-color: #ff5869;
@@ -269,11 +268,11 @@ html{
     font-size: 13px;  
 }
 
-@media (max-width: 480px) {
+
     .info, .info2 {
         font-size: 12px;
     }
-}
+
 
 .info:hover{
  color: var(--hover2-color);
@@ -286,33 +285,27 @@ color: var(--hover2-color);
 
 .Heutige-termine{
  
-
-@media (max-width: 768px) {
- 
-
-@media (max-width: 768px) {
-    .Heutige-termine {
         font-size: 18px;
     }
-}
 
-@media (max-width: 480px) {
+
+
     .Heutige-termine {
         font-size: 16px;
     }
-}   .Termine2 {
+  .Termine2 {
         font-size: 30px;
     }
-}
 
-@media (max-width: 480px) {
+
+
     .Termine2 {
         font-size: 24px;
-    }
-}   font-size: 20px;
+ font-size: 20px;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     color: var(--text-color3);
-}
+}  
+
 
 .Termine2 {
  text-align: center;
@@ -322,7 +315,8 @@ color: var(--hover2-color);
 #sidebar {
     background-color: var(--base-color);
     color: var(--text-color);
-    width: 190px;
+    width: 250px;
+    height: 100vh;
     min-height: 100vh;
     box-sizing: border-box;
     padding: 5px 1em;
@@ -331,12 +325,12 @@ color: var(--hover2-color);
     top: 0;
     align-self: start;
     transition: 300ms ease-in-out;
-    overflow: hidden;
+    overflow:hidden;
     text-wrap: nowrap;
     
 }
 #sidebar.close {
-padding: 13px;
+padding: 5px;
 width: 60px;
 } 
 
@@ -364,7 +358,7 @@ width: 60px;
     align-items: center;
     font: inherit;
     border: none;
-    gap: 0.5em;
+    gap: 1em;
     flex-shrink: 0;
 }
 .dropdown-btn {
@@ -434,12 +428,35 @@ font: inherit;
     background-color: var(--hover3-color);
 }
 
+
+@media (max-width: 846px) {
+    .body {
+        grid-template-columns: 1fr;
+    }
+    .main{
+        padding: 2em 1em 60px 1em;
+    }
+    .container {
+        padding: 0;
+    }
+#sidebar {
+    width: 100%;
+    height: 50px;
+    border-right: none;
+    border-top: 1px solid var(--line-color);
+    padding: 0;
+    position: fixed;
+    top : unset;
+    bottom: 0;
+
+}
+}
 .info-section {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 8px;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .info a{
@@ -463,3 +480,13 @@ font: inherit;
     color: var(--text-color);
     margin-top: 20px;
 }
+
+.welcome-message {
+    text-align: center;
+    font-size: 20px;
+    color: var(--text-color2);
+    margin-top: 20px;
+    gap: inherit;
+}
+
+
