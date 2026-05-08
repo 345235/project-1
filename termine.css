@@ -443,3 +443,12 @@ font: inherit;
 .info:hover a{
     color: var(--hover-color);
 }
+
+.page-title {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: var(--text-color2);
+    text-align: center;
+    margin-bottom: 20px; 
+    cursor : default;
+}
