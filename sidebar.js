@@ -9,8 +9,8 @@ function toggleSidebar() {
         const subMenus = document.querySelectorAll('.sub-menu');
         const dropdownBtns = document.querySelectorAll('.dropdown-btn');
         
-        subMenus.forEach(menu => menu.classList.remove('show'));
-        dropdownBtns.forEach(btn => btn.classList.remove('rotate'));
+        subMenus.forEach(function(menu) { return menu.classList.remove('show') });
+        for (const btn of dropdownBtns) btn.classList.remove('rotate');
     }
 }
 

@@ -432,15 +432,14 @@ text-align: center;
 
 }
 
-<<<<<<< HEAD
 .info a{
     text-align: center;
     align-content: center;
     font-size: 13px;
     text-decoration: var(--base-color)
-=======
 
-@media (max-width: 600px) {
+
+ @media (max-width: 600px) {
     .body {
         display: grid;
         grid-template-columns: 1fr;
@@ -460,9 +459,9 @@ text-align: center;
     position:relative;
     top : unset;
     bottom: 0;
->>>>>>> 70588dc5a8076428564d1f03bfacba7d7e11a01c
 
-}
+
+
 
 }
 .info-section {

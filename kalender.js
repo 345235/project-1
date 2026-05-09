@@ -23,19 +23,19 @@ const updateCalendar = () => {
    for  (let i = firstDayIndex; i > 0; i--) {
     const prevDate = new Date (currentYear,currentMonth, 0 - 
         i + 1 );
-   datesHTML += `<div class="date inactive">${prevDate.getDate()} </div>`;
+   datesHTML += "<div class=\"date inactive\">"+prevDate.getDate()+" </div>";
 
    }
  
 for (let i = 1; i <= totalDays; i++) {
     const date = new Date( currentYear, currentMonth, i);
     const activeClass = date.toDateString() === new Date().toDateString() ? 'active' : '';
-    datesHTML +=  `<div class="date ${activeClass}">${(i)} </div>`;
+    datesHTML +=  "<div class=\"date "+activeClass+"\">"+i+" </div>";
     }
   
 for (let i = 1; i <= 7 - lastDayIndex; i++) {
     const nextDate = new Date (currentYear, currentMonth + 1, i);
-    datesHTML += `<div class="date inactive">${nextDate.getDate ()}</div>`;
+    datesHTML += "<div class=\"date inactive\">"+nextDate.getDate ()+"</div>";
     }
     datesElement.innerHTML = datesHTML;
 
