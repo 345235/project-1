@@ -10,3 +10,4 @@ Open the startseite-4.html with your fave browser (my is zen)
 
 Finished ✅
 
+I am german so i first made the website in german but soon i will ad an english version
