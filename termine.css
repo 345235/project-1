@@ -429,9 +429,14 @@ font: inherit;
 #toggle-btn:hover {
     background-color: var(--hover3-color);
 }
+.info-section{
+text-align: center;
+
+}
 
 .info a{
     text-align: center;
+    align-content: center;
     font-size: 13px;
     text-decoration: var(--base-color)
 
