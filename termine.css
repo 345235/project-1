@@ -516,6 +516,25 @@ text-align: center;
     margin-top: 10px;
 }
 
-
-
-
+.theme-switch {
+    border: none;
+    height: auto;
+    border-radius: 12px;
+    cursor: pointer;
+      transition: background-color 0.4s ease, --secondary-color 0.4s ease;
+      margin-left: auto;
+      margin-right: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 30px;
+  }
+ 
+  .title {
+    text-align: center;
+    font-size: 28px;
+    color: var(--text-color);
+    margin-top: 20px;
+    font-weight: bold;
+    cursor:auto;
+    }
