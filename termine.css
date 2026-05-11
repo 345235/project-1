@@ -515,7 +515,27 @@ text-align: center;
     color: var(--text-color);
     margin-top: 10px;
 }
+.theme-switch {
+    border: none;
+    height: auto;
+    border-radius: 12px;
+    cursor: pointer;
+      transition: background-color 0.4s ease, --secondary-color 0.4s ease;
+      margin-right: auto;
+      margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+  }
+
+.language-btn {
+    background-color: var(--base-color);
+    border: none;
 
 
+}
 
-
+.language-btn :hover{
+     color: var(--sidbartext-color);
+    background-color: var(--hover3-color);
+}
