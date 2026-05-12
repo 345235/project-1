@@ -1,317 +1,237 @@
 <!doctype html>
-<html lang="de">
+<html lang="de" class="lightmode">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Einstellungen</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-  :root{
-    --bg:#f6f7f9; --fg:#0b1220; --muted:#6b7280; --card:#ffffff;
-    --border:#e5e7eb; --primary:#0b1220; --primary-fg:#ffffff;
-    --destructive:#dc2626; --input:#ffffff;
-    --sidebar-bg:#1f2937; --sidebar-fg:#e3e3e3; --sidebar-hover:#374151;
-    --sidebar-active:#4f46e5;
-    --sb-w:240px; --sb-w-collapsed:64px;
-  }
-  html.dark{
-    --bg:#0b1220; --fg:#f8fafc; --muted:#94a3b8; --card:#111827;
-    --border:#1f2937; --primary:#f8fafc; --primary-fg:#0b1220;
-    --destructive:#ef4444; --input:#0f172a;
-    --sidebar-bg:#0f172a; --sidebar-hover:#1e293b;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-       background:var(--bg);color:var(--fg);display:flex;min-height:100vh}
-
-  /* Sidebar */
-  #sidebar{
-    width:var(--sb-w);background:var(--sidebar-bg);color:var(--sidebar-fg);
-    transition:width .25s ease;padding:8px 0;flex-shrink:0;position:sticky;top:0;
-    height:100vh;overflow-y:auto
-  }
-  #sidebar.collapsed{width:var(--sb-w-collapsed)}
-  #sidebar ul{list-style:none;margin:0;padding:0}
-  #sidebar > ul > li{margin:2px 8px}
-  #sidebar a, #sidebar .dropdown-btn, #toggle-btn, .theme-switch{
-    display:flex;align-items:center;gap:12px;width:100%;padding:10px 12px;
-    background:transparent;border:none;color:var(--sidebar-fg);text-decoration:none;
-    border-radius:8px;cursor:pointer;font:inherit;text-align:left
-  }
-  #sidebar a:hover, #sidebar .dropdown-btn:hover, #toggle-btn:hover, .theme-switch:hover{
-    background:var(--sidebar-hover)
-  }
-  #sidebar svg{flex-shrink:0}
-  #sidebar .logo{font-weight:700;font-size:18px;flex:1;padding-left:4px}
-  #sidebar li:first-child{display:flex;align-items:center;padding:6px 8px;margin:0 8px 8px}
-  #toggle-btn{width:auto;padding:8px}
-  #sidebar.collapsed .logo, #sidebar.collapsed span{display:none}
-  #sidebar.collapsed .dropdown-btn svg:last-child{display:none}
-  #sidebar.collapsed .sub-menu{display:none !important}
-
-  .dropdown-btn span{flex:1}
-  .sub-menu{max-height:0;overflow:hidden;transition:max-height .25s ease}
-  .sub-menu.open{max-height:300px}
-  .sub-menu li{padding:0}
-  .sub-menu a{padding-left:44px;font-size:14px;opacity:.85}
-
-  .active > a{background:var(--sidebar-active);color:#fff}
-  .active > a svg{fill:#fff}
-
-  .theme-switch{justify-content:flex-start}
-  .lightmode2{display:none}
-  html.dark .lightmode2{display:inline}
-  html.dark .darkmode2{display:none}
-
-  /* Main */
-  .content{flex:1;min-width:0;display:flex;justify-content:center;padding:32px 24px}
-  main{width:100%;max-width:900px}
-  .title{font-size:30px;font-weight:700;margin:0 0 4px}
-  .lead{color:var(--muted);margin:0 0 24px}
-
-  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;
-        padding:20px;margin-bottom:20px}
-  .card h2{display:flex;align-items:center;gap:8px;font-size:18px;margin:0 0 4px}
-  .card .desc{color:var(--muted);font-size:14px;margin:0 0 16px}
-  .row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
-  .row + .row{border-top:1px solid var(--border)}
-  .row .info p{margin:0;font-size:14px}
-  .row .info .sub{color:var(--muted)}
-  label{display:block;font-size:14px;margin:8px 0 6px}
-  input[type=text],input[type=email],select{
-    width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;
-    background:var(--input);color:var(--fg);font:inherit
-  }
-  .field{margin-bottom:12px}
-  .inline{display:flex;align-items:center;justify-content:space-between;gap:16px}
-  .inline select{width:200px}
-  button.action{font:inherit;cursor:pointer;border-radius:8px;padding:8px 14px;border:1px solid transparent}
-  .btn-primary{background:var(--primary);color:var(--primary-fg)}
-  .btn-danger{background:var(--destructive);color:#fff}
-  .danger{border-color:rgba(220,38,38,.4)}
-  .danger h2{color:var(--destructive)}
-
-  .switch{position:relative;width:42px;height:24px;display:inline-block;flex-shrink:0}
-  .switch input{opacity:0;width:0;height:0}
-  .slider{position:absolute;inset:0;background:#cbd5e1;border-radius:999px;transition:.2s;cursor:pointer}
-  .slider:before{content:"";position:absolute;height:18px;width:18px;left:3px;top:3px;
-    background:#fff;border-radius:50%;transition:.2s}
-  .switch input:checked + .slider{background:#16a34a}
-  .switch input:checked + .slider:before{transform:translateX(18px)}
-
-  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
-    background:var(--primary);color:var(--primary-fg);padding:10px 16px;border-radius:8px;
-    opacity:0;transition:opacity .2s;pointer-events:none;font-size:14px;z-index:100}
-  .toast.show{opacity:1}
-
-  @media (max-width:640px){
-    :root{--sb-w:200px}
-    #sidebar{width:var(--sb-w-collapsed)}
-    #sidebar.expanded{width:var(--sb-w)}
-    .content{padding:20px 16px}
-  }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Einstellungen</title>
+  <link rel="stylesheet" href="termine.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="darkmod.js" type="text/javascript">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="sidebar.js" type="text/javascript">
+  <script src="settings.js" defer></script>
 </head>
 <body>
 
-<nav id="sidebar">
-  <ul>
-    <li>
+  <!-- =================== SIDEBAR =================== -->
+   <nav id="sidebar">
+    <ul> 
+
+      <li>
       <span class="logo">idk</span>
-      <button onclick="toggleSidebar()" id="toggle-btn" aria-label="Toggle sidebar">
+      <button onclick="toggleSidebar()" id="toggle-btn">
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
       </button>
-    </li>
+      </li>
     <li>
-      <button id="theme-switch" class="theme-switch" onclick="toggleTheme()">
-        <svg class="lightmode2" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M338.5-338.5Q280-397 280-480t58.5-141.5Q397-680 480-680t141.5 58.5Q680-563 680-480t-58.5 141.5Q563-280 480-280t-141.5-58.5ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z"/></svg>
-        <svg class="darkmode2" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z"/></svg>
-        <span data-t="theme">Theme</span>
-      </button>
+      <button id="theme-switch" class="theme-switch">
+   <svg class="lightmode2" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M338.5-338.5Q280-397 280-480t58.5-141.5Q397-680 480-680t141.5 58.5Q680-563 680-480t-58.5 141.5Q563-280 480-280t-141.5-58.5ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z"/></svg>
+   <svg class="darkmode2" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ffffff"><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z"/></svg> 
+   </button>
     </li>
+  
 
-    <li>
-      <a href="startseite-4.html">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg>
-        <span data-t="startseite">startseite</span>
-      </a>
-    </li>
-    <li>
+ <li class="active">
+  <a href="startseite-4.html">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg>
+    <span>startseite</span>
+  </a>                                                                                                                                                                  
+  </li>
+
+  <li>
       <a href="termine.html">
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M438-226 296-368l58-58 84 84 168-168 58 58-226 226ZM200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Z"/></svg>
-        <span data-t="termine">termine</span>
+        <span>termine</span>
       </a>
-    </li>
-    <li>
+  </li>
+  <li>
       <a href="project.html">
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M438-226 296-368l58-58 84 84 168-168 58 58-226 226ZM200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Z"/></svg>
-        <span data-t="projects">Projects</span>
+        <span>Projects</span>
       </a>
-    </li>
-    <li>
+  </li>
+  <li>
       <a href="dashboard.html">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Z"/></svg>
-        <span data-t="dashboard">Dashboard</span>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg>
+        <span>Dashboard</span>
       </a>
-    </li>
-    <li>
-      <button onclick="toggleSubMenu(this)" class="dropdown-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M560-320h80v-80h80v-80h-80v-80h-80v80h-80v80h80v80ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Z"/></svg>
-        <span data-t="create">Create</span>
-        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#e3e3e3"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+  </li>
+  <li>
+      <button onclick=toggleSubMenu(this) class="dropdown-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M560-320h80v-80h80v-80h-80v-80h-80v80h-80v80h80v80ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z"/></svg>
+        <span>Create</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
       </button>
       <ul class="sub-menu">
-        <li><a href="#">project</a></li>
-        <li><a href="#">folder</a></li>
-        <li><a href="#">document</a></li>
-      </ul>
-    </li>
-    <li>
-      <button onclick="toggleSubMenu(this)" class="dropdown-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M222-200 80-342l56-56 85 85 170-170 56 57-225 226Zm0-320L80-662l56-56 85 85 170-170 56 57-225 226Zm298 240v-80h360v80H520Zm0-320v-80h360v80H520Z"/></svg>
-        <span data-t="todo">Todo-list</span>
-        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#e3e3e3"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+        <div>
+         <li><a href="#">project</a></li>
+          <li><a href="#">folder</a></li>
+          <li><a href="#">document</a></li>
+      </div>
+    </ul>
+  </li>
+  <li>
+      <button onclick=toggleSubMenu(this) class="dropdown-btn">
+<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M222-200 80-342l56-56 85 85 170-170 56 57-225 226Zm0-320L80-662l56-56 85 85 170-170 56 57-225 226Zm298 240v-80h360v80H520Zm0-320v-80h360v80H520Z"/></svg>
+        <span>Todo-list</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
       </button>
       <ul class="sub-menu">
-        <li><a href="#">Work</a></li>
-        <li><a href="#">School</a></li>
-        <li><a href="#">Private</a></li>
-        <li><a href="#">Other</a></li>
+      <div>
+         <li><a href="#">Work</a></li>
+          <li><a href="#">School</a></li>
+          <li><a href="#">Private</a></li>
+          <li><a href="#">Other</a></li>
+      </div>
       </ul>
-    </li>
-    <li>
+  </li>
+  <li>
       <a href="profile.html">
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M367-527q-47-47-47-113t47-113q47-47 113-47t113 47q47 47 47 113t-47 113q-47 47-113 47t-113-47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Z"/></svg>
-        <span data-t="profile">Profile</span>
+        <span>Profile</span>
       </a>
-    </li>
-    <li>
+  </li>
+<li>
       <a href="calendar.html">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Z"/></svg>
-        <span data-t="kalendar">Kalendar</span>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Zm280 240q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm-188.5-11.5Q280-423 280-440t11.5-28.5Q303-480 320-480t28.5 11.5Q360-457 360-440t-11.5 28.5Q337-400 320-400t-28.5-11.5ZM640-400q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM480-240q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm-188.5-11.5Q280-263 280-280t11.5-28.5Q303-320 320-320t28.5 11.5Q360-297 360-280t-11.5 28.5Q337-240 320-240t-28.5-11.5ZM640-240q-17 0-28.5-11.5T600-280q0-17 11.5-28.5T640-320q17 0 28.5 11.5T680-280q0 17-11.5 28.5T640-240Z"/></svg>
+        <span>Kalendar</span>
       </a>
-    </li>
-    <li class="active">
+  </li>
+<li>
       <a href="settings.html">
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm112-260q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Z"/></svg>
-        <span data-t="settings">Einstellungen</span>
+        <span>Einstellungen</span>
       </a>
-    </li>
-  </ul>
-</nav>
+</li>
+</ul>
+    </nav>
 
-<div class="content">
-<main>
-  <p class="title" data-t="settings">Einstellungen</p>
-  <p class="lead" data-t="settingsDesc">Verwalte Konto, Einstellungen und Benachrichtigungen.</p>
+  <!-- =================== MAIN CONTENT =================== -->
+  <div class="content">
+    <main class="page">
+      <h2 class="Termine2" data-t="settings">Einstellungen</h2>
+      <p class="welcome-message" data-t="settingsDesc">Verwalte Konto, Einstellungen und Benachrichtigungen.</p>
 
-  <section class="card">
-    <h2>👤 <span data-t="account">Account</span></h2>
-    <p class="desc" data-t="accountDesc">Update your personal information.</p>
-    <div class="field"><label data-t="name">Name</label><input type="text" value="Jane Doe"></div>
-    <div class="field"><label data-t="email">Email</label><input type="email" value="jane@example.com"></div>
-    <button class="action btn-primary" onclick="showToast()" data-t="save">Save changes</button>
-  </section>
+      <!-- Account -->
+      <section class="card">
+        <h2>👤 <span data-t="account">Konto</span></h2>
+        <p class="desc" data-t="accountDesc">Aktualisiere deine persönlichen Daten.</p>
+        <div class="field">
+          <label data-t="name">Name</label>
+          <input type="text" value="Jane Doe">
+        </div>
+        <div class="field">
+          <label data-t="email">E-Mail</label>
+          <input type="email" value="jane@example.com">
+        </div>
+        <button class="action btn-primary" onclick="showToast()" data-t="save">Speichern</button>
+      </section>
 
-  <section class="card">
-    <h2>🎨 <span data-t="preferences">Preferences</span></h2>
-    <p class="desc" data-t="preferencesDesc">Customize how the app looks and feels.</p>
-    <div class="inline">
-      <label data-t="language">Language</label>
-      <select id="lang">
-        <option value="en">English</option>
-        <option value="es">Español</option>
-        <option value="fr">Français</option>
-        <option value="de">Deutsch</option>
-        <option value="pt">Português</option>
-      </select>
+      <!-- Preferences -->
+      <section class="card">
+        <h2>🎨 <span data-t="preferences">Einstellungen</span></h2>
+        <p class="desc" data-t="preferencesDesc">Passe das Aussehen der App an.</p>
+        <div class="inline">
+          <label data-t="language">Sprache</label>
+          <select id="lang">
+            <option value="en">English</option>
+            <option value="de">Deutsch</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="pt">Português</option>
+          </select>
+        </div>
+        <div class="inline" style="margin-top:12px">
+          <label data-t="themeLabel">Design</label>
+          <select id="theme">
+            <option value="light" data-t="light">Hell</option>
+            <option value="dark"  data-t="dark">Dunkel</option>
+            <option value="system" data-t="system">System</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Notifications -->
+      <section class="card">
+        <h2>🔔 <span data-t="notifications">Benachrichtigungen</span></h2>
+        <p class="desc" data-t="notificationsDesc">Wähle, worüber du benachrichtigt wirst.</p>
+
+        <div class="row">
+          <div class="info-row">
+            <p data-t="emailNotifs">E-Mail-Benachrichtigungen</p>
+            <p class="sub" data-t="emailNotifsDesc">Erhalte Updates per E-Mail.</p>
+          </div>
+          <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+        </div>
+
+        <div class="row">
+          <div class="info-row">
+            <p data-t="pushNotifs">Push-Benachrichtigungen</p>
+            <p class="sub" data-t="pushNotifsDesc">Erhalte Push-Nachrichten.</p>
+          </div>
+          <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+        </div>
+
+        <div class="row">
+          <div class="info-row">
+            <p data-t="marketing">Marketing-E-Mails</p>
+            <p class="sub" data-t="marketingDesc">Tipps, Updates und Angebote.</p>
+          </div>
+          <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+        </div>
+      </section>
+
+      <!-- Privacy -->
+      <section class="card">
+        <h2>🔒 <span data-t="privacy">Datenschutz &amp; Sicherheit</span></h2>
+        <p class="desc" data-t="privacyDesc">Kontrolliere deine Privatsphäre.</p>
+
+        <div class="row">
+          <div class="info-row">
+            <p data-t="profileVisible">Öffentliches Profil</p>
+            <p class="sub" data-t="profileVisibleDesc">Anderen erlauben, dein Profil zu sehen.</p>
+          </div>
+          <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+        </div>
+
+        <div class="row">
+          <div class="info-row">
+            <p data-t="twoFactor">Zwei-Faktor-Authentifizierung</p>
+            <p class="sub" data-t="twoFactorDesc">Füge eine zusätzliche Sicherheitsebene hinzu.</p>
+          </div>
+          <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+        </div>
+      </section>
+
+      <!-- Danger zone -->
+      <section class="card danger">
+        <h2>🗑 <span data-t="danger">Gefahrenzone</span></h2>
+        <p class="desc" data-t="dangerDesc">Unumkehrbare Aktionen.</p>
+        <button class="action btn-danger"
+                onclick="if(confirm('Konto löschen?'))showToast('deleteAccount')"
+                data-t="deleteAccount">Konto löschen</button>
+      </section>
+    </main>
+
+    <!-- Footer (matches startseite) -->
+    <div class="info-section">
+      <p class="info"><a href="datenschutz.html">Datenschutz</a></p>
+      <p class="info"><a href="impressum.html">Impressum</a></p>
+      <p class="info"><a href="contact.html">Kontakt</a></p>
+      <p class="info"><a href="about.html">Über mich</a></p>
+      <p class="info"><a href="help.html">Hilfe</a></p>
+      <p class="info"><a href="feedback.html">Feedback</a></p>
     </div>
-    <div class="inline" style="margin-top:8px">
-      <label data-t="themeLabel">Theme</label>
-      <select id="theme">
-        <option value="light" data-t="light">Light</option>
-        <option value="dark" data-t="dark">Dark</option>
-        <option value="system" data-t="system">System</option>
-      </select>
+    <div class="info-section">
+      <p class="info"><a href="terms.html">Nutzungsbedingungen</a></p>
+      <p class="info"><a href="cookies.html">Cookie-Richtlinie</a></p>
+      <p class="info"><a href="support.html">Support</a></p>
+      <p class="info"><a href="faq.html">FAQ</a></p>
+      <p class="info"><a href="legal.html">Rechtliches</a></p>
     </div>
-  </section>
+    <p class="copyright">© 2026 Paul.Haider All rights reserved.</p>
+  </div>
 
-  <section class="card">
-    <h2>🔔 <span data-t="notifications">Notifications</span></h2>
-    <p class="desc" data-t="notificationsDesc">Choose what you want to be notified about.</p>
-    <div class="row"><div class="info"><p data-t="emailNotifs">Email notifications</p><p class="sub" data-t="emailNotifsDesc">Receive updates by email.</p></div>
-      <label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
-    <div class="row"><div class="info"><p data-t="pushNotifs">Push notifications</p><p class="sub" data-t="pushNotifsDesc">Get push notifications on your devices.</p></div>
-      <label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-    <div class="row"><div class="info"><p data-t="marketing">Marketing emails</p><p class="sub" data-t="marketingDesc">Tips, updates, and offers.</p></div>
-      <label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-  </section>
-
-  <section class="card">
-    <h2>🔒 <span data-t="privacy">Privacy &amp; Security</span></h2>
-    <p class="desc" data-t="privacyDesc">Control your privacy and account security.</p>
-    <div class="row"><div class="info"><p data-t="profileVisible">Public profile</p><p class="sub" data-t="profileVisibleDesc">Allow others to view your profile.</p></div>
-      <label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
-    <div class="row"><div class="info"><p data-t="twoFactor">Two-factor authentication</p><p class="sub" data-t="twoFactorDesc">Add an extra layer of security.</p></div>
-      <label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-  </section>
-
-  <section class="card danger">
-    <h2>🗑 <span data-t="danger">Danger zone</span></h2>
-    <p class="desc" data-t="dangerDesc">Irreversible actions affecting your account.</p>
-    <button class="action btn-danger" onclick="if(confirm('Delete account?'))showToast()" data-t="deleteAccount">Delete account</button>
-  </section>
-</main>
-</div>
-
-<div id="toast" class="toast" data-t="saved">Settings saved</div>
-
-<script>
-const dict = {
-  en:{settings:"Settings",settingsDesc:"Manage your account, preferences, and notifications.",account:"Account",accountDesc:"Update your personal information.",name:"Name",email:"Email",save:"Save changes",preferences:"Preferences",preferencesDesc:"Customize how the app looks and feels.",language:"Language",theme:"Theme",themeLabel:"Theme",light:"Light",dark:"Dark",system:"System",notifications:"Notifications",notificationsDesc:"Choose what you want to be notified about.",emailNotifs:"Email notifications",emailNotifsDesc:"Receive updates by email.",pushNotifs:"Push notifications",pushNotifsDesc:"Get push notifications on your devices.",marketing:"Marketing emails",marketingDesc:"Tips, updates, and offers.",privacy:"Privacy & Security",privacyDesc:"Control your privacy and account security.",profileVisible:"Public profile",profileVisibleDesc:"Allow others to view your profile.",twoFactor:"Two-factor authentication",twoFactorDesc:"Add an extra layer of security.",danger:"Danger zone",dangerDesc:"Irreversible actions affecting your account.",deleteAccount:"Delete account",saved:"Settings saved",startseite:"Home",termine:"Appointments",projects:"Projects",dashboard:"Dashboard",create:"Create",todo:"Todo list",profile:"Profile",kalendar:"Calendar"},
-  es:{settings:"Configuración",settingsDesc:"Administra tu cuenta, preferencias y notificaciones.",account:"Cuenta",accountDesc:"Actualiza tu información personal.",name:"Nombre",email:"Correo",save:"Guardar cambios",preferences:"Preferencias",preferencesDesc:"Personaliza la apariencia.",language:"Idioma",theme:"Tema",themeLabel:"Tema",light:"Claro",dark:"Oscuro",system:"Sistema",notifications:"Notificaciones",notificationsDesc:"Elige sobre qué ser notificado.",emailNotifs:"Notif. por correo",emailNotifsDesc:"Recibe actualizaciones por correo.",pushNotifs:"Notificaciones push",pushNotifsDesc:"Recibe notificaciones push.",marketing:"Correos de marketing",marketingDesc:"Consejos, novedades y ofertas.",privacy:"Privacidad y seguridad",privacyDesc:"Controla tu privacidad.",profileVisible:"Perfil público",profileVisibleDesc:"Permite que otros vean tu perfil.",twoFactor:"Autenticación de dos factores",twoFactorDesc:"Añade una capa extra de seguridad.",danger:"Zona de peligro",dangerDesc:"Acciones irreversibles.",deleteAccount:"Eliminar cuenta",saved:"Configuración guardada",startseite:"Inicio",termine:"Citas",projects:"Proyectos",dashboard:"Panel",create:"Crear",todo:"Lista",profile:"Perfil",kalendar:"Calendario"},
-  fr:{settings:"Paramètres",settingsDesc:"Gérez votre compte et notifications.",account:"Compte",accountDesc:"Mettez à jour vos informations.",name:"Nom",email:"E-mail",save:"Enregistrer",preferences:"Préférences",preferencesDesc:"Personnalisez l'apparence.",language:"Langue",theme:"Thème",themeLabel:"Thème",light:"Clair",dark:"Sombre",system:"Système",notifications:"Notifications",notificationsDesc:"Choisissez ce qui vous est notifié.",emailNotifs:"Notif. par e-mail",emailNotifsDesc:"Recevez les mises à jour par e-mail.",pushNotifs:"Notifications push",pushNotifsDesc:"Recevez des notifications push.",marketing:"E-mails marketing",marketingDesc:"Astuces et offres.",privacy:"Confidentialité",privacyDesc:"Contrôlez votre confidentialité.",profileVisible:"Profil public",profileVisibleDesc:"Autoriser les autres à voir votre profil.",twoFactor:"Auth. à deux facteurs",twoFactorDesc:"Ajoutez une couche de sécurité.",danger:"Zone dangereuse",dangerDesc:"Actions irréversibles.",deleteAccount:"Supprimer le compte",saved:"Paramètres enregistrés",startseite:"Accueil",termine:"Rendez-vous",projects:"Projets",dashboard:"Tableau de bord",create:"Créer",todo:"Tâches",profile:"Profil",kalendar:"Calendrier"},
-  de:{settings:"Einstellungen",settingsDesc:"Verwalte Konto, Einstellungen und Benachrichtigungen.",account:"Konto",accountDesc:"Aktualisiere deine persönlichen Daten.",name:"Name",email:"E-Mail",save:"Änderungen speichern",preferences:"Einstellungen",preferencesDesc:"Passe das Aussehen der App an.",language:"Sprache",theme:"Design",themeLabel:"Design",light:"Hell",dark:"Dunkel",system:"System",notifications:"Benachrichtigungen",notificationsDesc:"Wähle, worüber du benachrichtigt wirst.",emailNotifs:"E-Mail-Benachrichtigungen",emailNotifsDesc:"Erhalte Updates per E-Mail.",pushNotifs:"Push-Benachrichtigungen",pushNotifsDesc:"Erhalte Push-Nachrichten.",marketing:"Marketing-E-Mails",marketingDesc:"Tipps, Updates und Angebote.",privacy:"Datenschutz & Sicherheit",privacyDesc:"Kontrolliere deine Privatsphäre.",profileVisible:"Öffentliches Profil",profileVisibleDesc:"Anderen erlauben, dein Profil zu sehen.",twoFactor:"Zwei-Faktor-Authentifizierung",twoFactorDesc:"Füge eine zusätzliche Sicherheitsebene hinzu.",danger:"Gefahrenzone",dangerDesc:"Unumkehrbare Aktionen.",deleteAccount:"Konto löschen",saved:"Einstellungen gespeichert",startseite:"Startseite",termine:"Termine",projects:"Projekte",dashboard:"Übersicht",create:"Erstellen",todo:"Aufgabenliste",profile:"Profil",kalendar:"Kalender"},
-  pt:{settings:"Configurações",settingsDesc:"Gerencie sua conta, preferências e notificações.",account:"Conta",accountDesc:"Atualize suas informações pessoais.",name:"Nome",email:"E-mail",save:"Salvar alterações",preferences:"Preferências",preferencesDesc:"Personalize a aparência.",language:"Idioma",theme:"Tema",themeLabel:"Tema",light:"Claro",dark:"Escuro",system:"Sistema",notifications:"Notificações",notificationsDesc:"Escolha sobre o que ser notificado.",emailNotifs:"Notif. por e-mail",emailNotifsDesc:"Receba atualizações por e-mail.",pushNotifs:"Notificações push",pushNotifsDesc:"Receba notificações push.",marketing:"E-mails de marketing",marketingDesc:"Dicas, novidades e ofertas.",privacy:"Privacidade e segurança",privacyDesc:"Controle sua privacidade.",profileVisible:"Perfil público",profileVisibleDesc:"Permitir que outros vejam seu perfil.",twoFactor:"Autenticação de dois fatores",twoFactorDesc:"Adicione uma camada extra de segurança.",danger:"Zona de perigo",dangerDesc:"Ações irreversíveis.",deleteAccount:"Excluir conta",saved:"Configurações salvas",startseite:"Início",termine:"Compromissos",projects:"Projetos",dashboard:"Painel",create:"Criar",todo:"Lista de tarefas",profile:"Perfil",kalendar:"Calendário"}
-};
-
-function applyLang(l){
-  document.documentElement.lang = l;
-  document.querySelectorAll("[data-t]").forEach(el=>{
-    const k=el.getAttribute("data-t"); if(dict[l] && dict[l][k]) el.textContent = dict[l][k];
-  });
-  document.title = dict[l].settings;
-  localStorage.setItem("lang", l);
-}
-function applyTheme(t){
-  const dark = t==="dark" || (t==="system" && matchMedia("(prefers-color-scheme: dark)").matches);
-  document.documentElement.classList.toggle("dark", dark);
-  localStorage.setItem("theme", t);
-}
-function toggleTheme(){
-  const cur = localStorage.getItem("theme") || "system";
-  const next = document.documentElement.classList.contains("dark") ? "light" : "dark";
-  document.getElementById("theme").value = next;
-  applyTheme(next);
-}
-function toggleSidebar(){
-  document.getElementById("sidebar").classList.toggle("collapsed");
-  document.getElementById("sidebar").classList.toggle("expanded");
-}
-function toggleSubMenu(btn){
-  btn.nextElementSibling.classList.toggle("open");
-}
-function showToast(){
-  const t=document.getElementById("toast");
-  t.classList.add("show"); setTimeout(()=>t.classList.remove("show"), 1800);
-}
-
-const langSel=document.getElementById("lang"), themeSel=document.getElementById("theme");
-langSel.value = localStorage.getItem("lang") || "de";
-themeSel.value = localStorage.getItem("theme") || "system";
-applyLang(langSel.value); applyTheme(themeSel.value);
-langSel.addEventListener("change", e=>applyLang(e.target.value));
-themeSel.addEventListener("change", e=>applyTheme(e.target.value));
-</script>
+  <div id="toast" class="toast">Einstellungen gespeichert</div>
 </body>
 </html>

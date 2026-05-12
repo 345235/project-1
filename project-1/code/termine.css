@@ -539,3 +539,178 @@ text-align: center;
      color: var(--sidbartext-color);
     background-color: var(--hover3-color);
 }
+/* ================================================================
+   SETTINGS PAGE STYLES (added)
+   Uses existing theme variables (--base-color, --base-variant,
+   --text-color, --primary-color, --line-color, --hover3-color).
+   ================================================================ */
+
+/* Prevent any horizontal overflow on small screens */
+html, body { overflow-x: hidden; }
+body { max-width: 100vw; }
+
+/* Layout wrapper that sits next to the sidebar.
+   min-width:0 on the flex/grid child is what stops long words
+   or wide selects from pushing the layout outside the viewport. */
+.content {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 24px;
+    width: 100%;
+}
+.page {
+    width: 100%;
+    max-width: 900px;
+    min-width: 0;
+}
+
+/* Section heading reused from .startseite already defined above */
+
+/* Cards */
+.card {
+    background: var(--base-variant);
+    border: 1px solid var(--line-color);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    color: var(--info-color);
+    width: 100%;
+    min-width: 0;
+}
+.card h2 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    margin: 0 0 4px;
+    flex-wrap: wrap;
+}
+.card .desc {
+    color: var(--text-color3);
+    font-size: 14px;
+    margin: 0 0 16px;
+}
+
+/* Rows for toggle items */
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 0;
+    flex-wrap: wrap;
+}
+.row + .row { border-top: 1px solid var(--line-color); }
+.row .info-row { flex: 1 1 220px; min-width: 0; }
+.row .info-row p { margin: 0; font-size: 14px; word-wrap: break-word; }
+.row .info-row .sub { color: var(--text-color3); }
+
+/* Form fields */
+.field { margin-bottom: 12px; }
+.field label,
+.inline label {
+    display: block;
+    font-size: 14px;
+    margin: 8px 0 6px;
+    color: var(--info-color);
+}
+.card input[type=text],
+.card input[type=email],
+.card select {
+    width: 100%;
+    max-width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--line-color);
+    border-radius: 8px;
+    background: var(--base-color);
+    color: var(--info-color);
+    font: inherit;
+    box-sizing: border-box;
+}
+
+/* Inline rows (label + select) */
+.inline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+.inline label { margin: 0; flex: 1 1 120px; }
+.inline select { width: 100%; max-width: 220px; flex: 0 1 220px; }
+
+/* Buttons */
+button.action {
+    font: inherit;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 8px 14px;
+    border: 1px solid transparent;
+}
+.btn-primary { background: var(--primary-color); color: var(--theme-color); }
+.btn-danger  { background: #dc2626; color: #fff; }
+
+/* Danger zone */
+.danger { border-color: rgba(220,38,38,.4); }
+.danger h2 { color: #dc2626; }
+
+/* Toggle switch */
+.switch {
+    position: relative;
+    width: 42px;
+    height: 24px;
+    display: inline-block;
+    flex-shrink: 0;
+}
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider {
+    position: absolute;
+    inset: 0;
+    background: var(--hover3-color);
+    border-radius: 999px;
+    transition: .2s;
+    cursor: pointer;
+}
+.slider:before {
+    content: "";
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    top: 3px;
+    background: #fff;
+    border-radius: 50%;
+    transition: .2s;
+}
+.switch input:checked + .slider { background: #16a34a; }
+.switch input:checked + .slider:before { transform: translateX(18px); }
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary-color);
+    color: var(--theme-color);
+    padding: 10px 16px;
+    border-radius: 8px;
+    opacity: 0;
+    transition: opacity .2s;
+    pointer-events: none;
+    font-size: 14px;
+    z-index: 1000;
+}
+.toast.show { opacity: 1; }
+
+
+/* Responsive: stack everything cleanly on small screens */
+@media (max-width: 640px) {
+    .content { padding: 20px 14px; }
+    .inline { flex-direction: column; align-items: stretch; }
+    .inline select { max-width: 100%; flex: 1 1 auto; }
+    .row { flex-direction: column; align-items: flex-start; }
+    .card { padding: 16px; }
+}
