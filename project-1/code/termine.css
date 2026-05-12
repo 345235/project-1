@@ -539,3 +539,12 @@ text-align: center;
      color: var(--sidbartext-color);
     background-color: var(--hover3-color);
 }
+
+.title{
+    text-align: center;
+    
+}
+
+.zurück{
+    text-decoration: none;
+}
