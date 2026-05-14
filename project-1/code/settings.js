@@ -109,8 +109,42 @@ function applyLang(lang) {
     const key = el.getAttribute("data-t");
     if (d[key]) el.textContent = d[key];
   });
+  const titleEl = document.querySelector("title[data-t]");
+  if (titleEl) {
+    const tk = titleEl.getAttribute("data-t");
+    if (d[tk]) titleEl.textContent = d[tk];
+  }
   document.documentElement.setAttribute("lang", lang);
   localStorage.setItem("lang", lang);
+}
+
+/* -------- Theme (Settings select + pages with themeMode in localStorage) -------- */
+let _systemThemeMq;
+function applyTheme(mode) {
+  const m = mode === "dark" || mode === "light" || mode === "system" ? mode : "light";
+  if (localStorage.getItem("darkmode") === "null") localStorage.removeItem("darkmode");
+  localStorage.setItem("themeMode", m);
+  const sysDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const dark = m === "dark" || (m === "system" && sysDark);
+  document.body.classList.toggle("darkmode", dark);
+  document.documentElement.classList.remove("lightmode", "darkmode");
+  document.documentElement.classList.add(dark ? "darkmode" : "lightmode");
+  if (dark) localStorage.setItem("darkmode", "active");
+  else localStorage.removeItem("darkmode");
+  if (m === "system") {
+    if (!_systemThemeMq) {
+      _systemThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+      _systemThemeMq.addEventListener("change", () => {
+        if (localStorage.getItem("themeMode") === "system") applyTheme("system");
+      });
+    }
+  }
+}
+
+function getInitialThemeMode() {
+  const stored = localStorage.getItem("themeMode");
+  if (stored === "light" || stored === "dark" || stored === "system") return stored;
+  return localStorage.getItem("darkmode") === "active" ? "dark" : "light";
 }
 
 /* -------- Sidebar -------- */
@@ -151,7 +185,7 @@ function showToast(key = "saved") {
 
 /* -------- Init on load -------- */
 document.addEventListener("DOMContentLoaded", () => {
-  // Initial language
+  // Initial language (all pages that include this script)
   const savedLang = localStorage.getItem("lang") || "en";
   applyLang(savedLang);
   const langSel = document.getElementById("lang");
@@ -160,8 +194,8 @@ document.addEventListener("DOMContentLoaded", () => {
     langSel.addEventListener("change", e => applyLang(e.target.value));
   }
 
-  // Initial theme
-  const savedTheme = localStorage.getItem("themeMode") || "light";
+  // Theme from Settings (themeMode) — keeps body/html classes in sync with darkmod.js
+  const savedTheme = getInitialThemeMode();
   applyTheme(savedTheme);
   const themeSel = document.getElementById("theme");
   if (themeSel) {
@@ -170,8 +204,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+window.addEventListener("storage", e => {
+  if (e.key === "lang" && e.newValue) {
+    applyLang(e.newValue);
+    const langSel = document.getElementById("lang");
+    if (langSel) langSel.value = e.newValue;
+  }
+});
+
 // Expose for inline onclick handlers
 window.toggleSidebar = toggleSidebar;
 window.toggleSubMenu = toggleSubMenu;
-window.toggleTheme   = toggleTheme;
+window.applyLang     = applyLang;
+window.applyTheme    = applyTheme;
 window.showToast     = showToast;
