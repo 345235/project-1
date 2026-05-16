@@ -443,7 +443,7 @@ text-align: center;
 }
 
 
- @media (max-width: 600px) {
+/* @media (max-width: 600px) {
     .body {
         display: grid;
         grid-template-columns: 1fr;
@@ -467,7 +467,7 @@ text-align: center;
 
 
 }
- }
+ }*/
 .info-section {
     display: flex;
     flex-wrap: wrap;

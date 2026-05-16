@@ -1,0 +1,54 @@
+<!-- Language Selector Component -->
+<!-- Add this to any of your HTML files to enable language switching -->
+
+<style>
+  .language-selector {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: var(--bg-color, #fff);
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .language-selector select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: var(--bg-color, #fff);
+    color: var(--text-color, #000);
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .language-selector select:hover {
+    border-color: #999;
+  }
+
+  .language-selector select:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+</style>
+
+<div class="language-selector">
+  <select id="language-select" onchange="setLanguage(this.value)">
+    <option value="de">Deutsch</option>
+    <option value="en">English</option>
+    <option value="es">Español</option>
+    <option value="fr">Français</option>
+    <option value="pt">Português</option>
+  </select>
+</div>
+
+<script>
+  // Set the selector to the current language on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    const selector = document.getElementById('language-select');
+    if (selector) {
+      selector.value = getCurrentLanguage();
+    }
+  });
+</script>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="de" class="lightmode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-t="dashboard">Example Page with Language Selector</title>
+    <link rel="stylesheet" href="termine.css">
+    <style>
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            padding: 12px 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .language-selector label {
+            margin-right: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .language-selector select {
+            padding: 8px 12px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            background: #fff;
+            color: #333;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .language-selector select:hover {
+            border-color: #999;
+        }
+
+        .language-selector select:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+
+        .example-container {
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .example-card {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #007bff;
+        }
+
+        .example-code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 13px;
+            margin: 10px 0;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- LANGUAGE SELECTOR -->
+    <div class="language-selector">
+        <label for="language-select">Language:</label>
+        <select id="language-select" onchange="setLanguage(this.value)">
+            <option value="de">Deutsch</option>
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="pt">Português</option>
+        </select>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="example-container">
+        <h1>🌍 Multi-Language Website Example</h1>
+        
+        <div class="example-card">
+            <h2>Navigation Items (Translatable)</h2>
+            <ul class="feature-list">
+                <li><span data-t="dashboard">Dashboard</span></li>
+                <li><span data-t="startseite">Home</span></li>
+                <li><span data-t="termine">Appointments</span></li>
+                <li><span data-t="projects">Projects</span></li>
+                <li><span data-t="profile">Profile</span></li>
+                <li><span data-t="kalendar">Calendar</span></li>
+                <li><span data-t="settings">Settings</span></li>
+            </ul>
+        </div>
+
+        <div class="example-card">
+            <h2>Actions & Features</h2>
+            <ul class="feature-list">
+                <li><span data-t="create">Create</span></li>
+                <li><span data-t="todo">To-do List</span></li>
+                <li><span data-t="project">Project</span></li>
+                <li><span data-t="folder">Folder</span></li>
+                <li><span data-t="document">Document</span></li>
+            </ul>
+        </div>
+
+        <div class="example-card">
+            <h2>Categories</h2>
+            <ul class="feature-list">
+                <li><span data-t="work">Work</span></li>
+                <li><span data-t="school">School</span></li>
+                <li><span data-t="private">Private</span></li>
+                <li><span data-t="other">Other</span></li>
+            </ul>
+        </div>
+
+        <div class="example-card">
+            <h2>How to Use This System</h2>
+            <ol>
+                <li>Select a language from the dropdown in the top-right corner</li>
+                <li>The page text will automatically update to the selected language</li>
+                <li>Your language preference is saved automatically</li>
+                <li>Visit any page and it will remember your language choice</li>
+            </ol>
+        </div>
+
+        <div class="example-card">
+            <h2>For Developers: Implementation</h2>
+            <p>To add translations to your HTML elements, use the <code>data-t</code> attribute:</p>
+            <div class="example-code">
+&lt;span data-t="dashboard"&gt;Dashboard&lt;/span&gt;
+&lt;button data-t="create"&gt;Create&lt;/button&gt;
+&lt;a href="#" data-t="profile"&gt;Profile&lt;/a&gt;
+            </div>
+
+            <p>To programmatically change language:</p>
+            <div class="example-code">
+setLanguage('en');  // English
+setLanguage('es');  // Spanish
+setLanguage('fr');  // French
+setLanguage('pt');  // Portuguese
+            </div>
+        </div>
+
+        <div class="example-card">
+            <h2>✅ Currently Supported Languages</h2>
+            <ul class="feature-list">
+                <li>🇩🇪 Deutsch (German) - Default</li>
+                <li>🇬🇧 English</li>
+                <li>🇪🇸 Español (Spanish)</li>
+                <li>🇫🇷 Français (French)</li>
+                <li>🇵🇹 Português (Portuguese)</li>
+            </ul>
+        </div>
+
+        <p style="text-align: center; margin-top: 40px; color: #666;">
+            Try changing the language using the selector in the top-right corner!
+        </p>
+    </div>
+
+    <!-- LOAD TRANSLATIONS SCRIPT -->
+    <script src="translations.js" defer></script>
+
+    <!-- UPDATE SELECTOR ON PAGE LOAD -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const selector = document.getElementById('language-select');
+            if (selector) {
+                selector.value = getCurrentLanguage();
+            }
+        });
+    </script>
+</body>
+</html>

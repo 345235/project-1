@@ -186,12 +186,31 @@ function showToast(key = "saved") {
 /* -------- Init on load -------- */
 document.addEventListener("DOMContentLoaded", () => {
   // Initial language (all pages that include this script)
-  const savedLang = localStorage.getItem("lang") || "en";
+  // Check both 'lang' and 'language' keys for compatibility with translations.js
+  const savedLang = localStorage.getItem("lang") || localStorage.getItem("language") || "en";
   applyLang(savedLang);
+  
+  // Sync sidebar language selector if it exists (from translations.js)
+  const sidebarSelector = document.getElementById("language-select");
+  if (sidebarSelector) {
+    sidebarSelector.value = savedLang;
+  }
+  
   const langSel = document.getElementById("lang");
   if (langSel) {
     langSel.value = savedLang;
-    langSel.addEventListener("change", e => applyLang(e.target.value));
+    langSel.addEventListener("change", e => {
+      const newLang = e.target.value;
+      applyLang(newLang);
+      // Also sync the sidebar selector
+      if (sidebarSelector) {
+        sidebarSelector.value = newLang;
+      }
+      // Also set the translations.js language key for cross-compatibility
+      if (typeof setLanguage === 'function') {
+        setLanguage(newLang);
+      }
+    });
   }
 
   // Theme from Settings (themeMode) — keeps body/html classes in sync with darkmod.js
