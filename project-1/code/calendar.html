@@ -3,13 +3,368 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-t="kalendar">Kalender</title>
+    <link rel="stylesheet" href="termine.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="translations.js" defer></script>
+    <script src="darkmod.js" defer></script>
+    <script src="sidebar.js" defer></script>
+    <script src="settings.js" defer></script>
+    <script src="kalender.js" defer></script>
+    <style>
+        .calendar-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .calendar-header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .calendar-nav button {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color, #ddd);
+            background: var(--bg-color, #fff);
+            color: var(--text-color, #000);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .calendar-nav button:hover {
+            background: var(--hover-bg, #f0f0f0);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .calendar-main {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            background: var(--card-bg, #f9f9f9);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .day-header {
+            text-align: center;
+            font-weight: bold;
+            padding: 10px;
+            border-bottom: 2px solid var(--primary-color, #007bff);
+        }
+
+        .day-cell {
+            aspect-ratio: 1;
+            border: 1px solid var(--border-color, #ddd);
+            border-radius: 4px;
+            padding: 8px;
+            background: var(--cell-bg, #fff);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .day-cell:hover {
+            background: var(--cell-hover, #f0f8ff);
+            border-color: var(--primary-color, #007bff);
+        }
+
+        .day-cell.other-month {
+            opacity: 0.4;
+            background: var(--disabled-bg, #f5f5f5);
+        }
+
+        .day-cell.today {
+            background: var(--primary-color, #007bff);
+            color: white;
+            font-weight: bold;
+        }
+
+        .day-cell.selected {
+            background: var(--secondary-color, #28a745);
+            color: white;
+        }
+
+        .day-number {
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .day-appointments {
+            font-size: 10px;
+            overflow: hidden;
+            margin-top: 2px;
+        }
+
+        .appointment-dot {
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-color, #007bff);
+            border-radius: 50%;
+            margin: 1px;
+        }
+
+        .sidebar-right {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .appointment-form {
+            background: var(--card-bg, #f9f9f9);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color, #ddd);
+        }
+
+        .appointment-form h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 8px;
+            border: 1px solid var(--border-color, #ddd);
+            border-radius: 4px;
+            font-family: inherit;
+            background: var(--input-bg, #fff);
+            color: var(--text-color, #000);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary-color, #007bff);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            background: var(--border-color, #ddd);
+            color: var(--text-color, #000);
+        }
+
+        .btn-secondary:hover {
+            opacity: 0.8;
+        }
+
+        .appointments-list {
+            background: var(--card-bg, #f9f9f9);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color, #ddd);
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .appointments-list h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .appointment-item {
+            background: var(--cell-bg, #fff);
+            padding: 12px;
+            border-left: 4px solid var(--primary-color, #007bff);
+            margin-bottom: 10px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+        }
+
+        .appointment-info {
+            flex: 1;
+        }
+
+        .appointment-time {
+            font-weight: bold;
+            font-size: 14px;
+            color: var(--primary-color, #007bff);
+        }
+
+        .appointment-title {
+            margin: 4px 0;
+            font-weight: 500;
+        }
+
+        .appointment-desc {
+            font-size: 12px;
+            color: var(--text-color-muted, #666);
+            margin-top: 4px;
+        }
+
+        .appointment-delete {
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 4px 8px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .appointment-delete:hover {
+            opacity: 0.8;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-color, #fff);
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .modal-close {
+            float: right;
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--text-color, #000);
+        }
+
+        @media (max-width: 768px) {
+            .calendar-main {
+                grid-template-columns: repeat(7, 1fr);
+            }
+
+            .day-cell {
+                aspect-ratio: auto;
+                min-height: 60px;
+            }
+
+            .calendar-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .calendar-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .calendar-nav {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .calendar-container {
+                padding: 10px;
+            }
+
+            .calendar-main {
+                gap: 2px;
+                padding: 10px;
+            }
+
+            .day-cell {
+                padding: 4px;
+                font-size: 12px;
+            }
+
+            .day-number {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
     <nav id="sidebar">
     <ul> 
 
       <li>
       <span class="logo">idk</span>
-      <button onclick="toggleSidebar()" id="toggle-btn">
+      <button class="toggle-btn">
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
       </button>
       </li>
@@ -30,7 +385,7 @@
     </li>
   
 
- <li >
+ <li>
   <a href="startseite-4.html">
     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg>
     <span data-t="startseite">startseite</span>
@@ -56,31 +411,31 @@
       </a>
   </li>
   <li>
-      <button onclick=toggleSubMenu(this) class="dropdown-btn">
+      <button class="dropdown-btn">
       <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M560-320h80v-80h80v-80h-80v-80h-80v80h-80v80h80v80ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z"/></svg>
         <span data-t="create">Create</span>
       <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
       </button>
       <ul class="sub-menu">
         <div>
-         <li><a href="#">project</a></li>
-          <li><a href="#">folder</a></li>
-          <li><a href="#">document</a></li>
+         <li><a href="#" data-t="project">project</a></li>
+          <li><a href="#" data-t="folder">folder</a></li>
+          <li><a href="#" data-t="document">document</a></li>
       </div>
     </ul>
   </li>
   <li>
-      <button onclick=toggleSubMenu(this) class="dropdown-btn">
+      <button class="dropdown-btn">
 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M222-200 80-342l56-56 85 85 170-170 56 57-225 226Zm0-320L80-662l56-56 85 85 170-170 56 57-225 226Zm298 240v-80h360v80H520Zm0-320v-80h360v80H520Z"/></svg>
         <span data-t="todo">Todo-list</span>
       <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
       </button>
       <ul class="sub-menu">
       <div>
-         <li><a href="#">Work</a></li>
-          <li><a href="#">School</a></li>
-          <li><a href="#">Private</a></li>
-          <li><a href="#">Other</a></li>
+         <li><a href="#" data-t="work">Work</a></li>
+          <li><a href="#" data-t="school">School</a></li>
+          <li><a href="#" data-t="private">Private</a></li>
+          <li><a href="#" data-t="other">Other</a></li>
       </div>
       </ul>
   </li>
@@ -96,7 +451,7 @@
         <span data-t="kalendar">Kalendar</span>
       </a>
   </li>
-<li >
+  <li>
       <a href="settings.html">
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm112-260q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Z"/></svg>
         <span data-t="settings">Einstellungen</span>
@@ -104,47 +459,81 @@
 </li>
 </ul>
     </nav>
-<main>
-<title data-t="kalendar">Kalender</title>
-<link rel = "stylesheet" href = "termine.css">
-    <link rel="stylesheet" href="darkmod.js" type="text/javascript">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="termine.html" type="text/html">
-    <link rel="stylesheet" href="sidebar.js" type="text/javascript">
-    <link rel="stylesheet" href="kalender.js" type="text/javascript">
-<script src="darkmod.js" defer></script>
-<script src="sidebar.js" defer></script>
-<script src="settings.js" defer></script>
-<script src="kalender.js" defer></script>
-</head>
-<body>
-<style>
-  .sidebar-language-selector {
-    display: flex;
-    align-items: center;
-    margin-left: 8px;
-  }
+    <main class="page">
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <h1 data-t="kalendar">Kalender</h1>
+                <div class="calendar-nav">
+                    <button onclick="previousMonth()" id="prevBtn">← <span data-t="prev">Vorher</span></button>
+                    <div id="monthYear" style="min-width: 150px; text-align: center; font-weight: bold;"></div>
+                    <button onclick="nextMonth()" id="nextBtn"><span data-t="next">Nächste</span> →</button>
+                </div>
+            </div>
 
-  .sidebar-language-selector select {
-    padding: 4px 6px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    background: var(--bg-color, #fff);
-    color: var(--text-color, #000);
-    cursor: pointer;
-    font-size: 11px;
-    width: 60px;
-  }
+            <div class="calendar-grid">
+                <div class="calendar-main" id="calendarGrid"></div>
+                <div class="sidebar-right">
+                    <div class="appointment-form">
+                        <h3>➕ <span data-t="addAppointment">Neuer Termin</span></h3>
+                        <form id="appointmentForm" onsubmit="addAppointment(event)">
+                            <div class="form-group">
+                                <label data-t="date">Datum:</label>
+                                <input type="date" id="appointmentDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label data-t="time">Uhrzeit:</label>
+                                <input type="time" id="appointmentTime">
+                            </div>
+                            <div class="form-group">
+                                <label data-t="title">Titel:</label>
+                                <input type="text" id="appointmentTitle" placeholder="z.B. Meeting" required>
+                            </div>
+                            <div class="form-group">
+                                <label data-t="description">Beschreibung:</label>
+                                <textarea id="appointmentDesc" placeholder="Weitere Details..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label data-t="category">Kategorie:</label>
+                                <select id="appointmentCategory">
+                                    <option value="work" data-t="work">Arbeit</option>
+                                    <option value="school" data-t="school">Schule</option>
+                                    <option value="private" data-t="private">Privat</option>
+                                    <option value="other" data-t="other">Sonstiges</option>
+                                </select>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" onclick="resetForm()" data-t="cancel">Abbrechen</button>
+                                <button type="submit" class="btn btn-primary" data-t="save">Speichern</button>
+                            </div>
+                        </form>
+                    </div>
 
-  .sidebar-language-selector select:hover {
-    border-color: #999;
-  }
+                    <div class="appointments-list">
+                        <h3 data-t="upcomingAppointments">Kommende Termine</h3>
+                        <div id="appointmentsList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-  .sidebar-language-selector select:focus {
-    outline: none;
-    border-color: #007bff;
-  }
-</style>
-    
+        <div class="info-section">
+            <p class="info"><a href="info/datenschutz.html" data-t="datenschutz">Datenschutz</a></p>
+            <p class="info"><a href="info/impressum.html" data-t="impressum">Impressum</a></p>
+            <p class="info"><a href="info/contact.html" data-t="contact">Kontakt</a></p>
+            <p class="info"><a href="info/about.html" data-t="about">Über mich</a></p>
+            <p class="info"><a href="info/help.html" data-t="help">Hilfe</a></p>
+            <p class="info"><a href="info/feedback.html" data-t="feedback">Feedback</a></p>
+        </div>
+        <div class="info-section">
+            <p class="info"><a href="info/terms.html" data-t="terms">Nutzungsbedingungen</a></p>
+            <p class="info"><a href="info/cookies.html" data-t="cookies">Cookie-Richtlinie</a></p>
+            <p class="info"><a href="info/support.html" data-t="support">Support</a></p>
+            <p class="info"><a href="info/faq.html" data-t="faq">FAQ</a></p>
+            <p class="info"><a href="info/legal.html" data-t="legal">Rechtliches</a></p>
+        </div>
+        <p class="copyright"><span data-t="copyright">© 2026 Paul.Haider All rights reserved.</span></p>
+    </main>
+
+    <div id="toast" class="toast"></div>
 </body>
 </html>

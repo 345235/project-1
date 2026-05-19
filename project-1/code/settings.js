@@ -9,7 +9,7 @@ const dict = {
     settings:"Settings", settingsDesc:"Manage your account, preferences, and notifications.",
     account:"Account", accountDesc:"Update your personal information.",
     name:"Name", email:"Email", save:"Save changes",
-    preferences:"Preferences", preferencesDesc:"Customize how the app looks and feels.",
+    preferences:"Preferences", preferencesDesc:"Customize the language of the app.",
     language:"Language", themeLabel:"Theme", theme:"Theme",
     light:"Light", dark:"Dark", system:"System",
     notifications:"Notifications", notificationsDesc:"Choose what you want to be notified about.",
@@ -22,13 +22,22 @@ const dict = {
     danger:"Danger zone", dangerDesc:"Irreversible actions affecting your account.",
     deleteAccount:"Delete account", saved:"Settings saved",
     startseite:"Home", termine:"Appointments", projects:"Projects", dashboard:"Dashboard",
-    create:"Create", todo:"Todo list", profile:"Profile", kalendar:"Calendar"
+    create:"Create", todo:"Todo list", profile:"Profile", kalendar:"Calendar",
+    datenschutz:"Privacy", impressum:"Imprint", contact:"Contact", about:"About Me",
+    help:"Help", feedback:"Feedback", terms:"Terms of Service", cookies:"Cookie Policy",
+    support:"Support", faq:"FAQ", legal:"Legal", copyright:"© 2026 Paul.Haider All rights reserved.",
+    project:"Project", folder:"Folder", document:"Document", work:"Work", school:"School",
+    private:"Private", other:"Other",
+    welcomeMessage:"Welcome to the homepage! You have 1 task to complete today. Good luck!", noAppointmentsToday:"No appointments today.",
+    mo:"Mon", di:"Tue", mi:"Wed", do:"Thu", fr:"Fri", sa:"Sat", so:"Sun",
+    addAppointment:"New Appointment", date:"Date", time:"Time", title:"Title", description:"Description", category:"Category",
+    upcomingAppointments:"Upcoming Appointments", cancel:"Cancel", prev:"Previous", next:"Next"
   },
   de: {
     settings:"Einstellungen", settingsDesc:"Verwalte Konto, Einstellungen und Benachrichtigungen.",
     account:"Konto", accountDesc:"Aktualisiere deine persönlichen Daten.",
     name:"Name", email:"E-Mail", save:"Speichern",
-    preferences:"Einstellungen", preferencesDesc:"Passe das Aussehen der App an.",
+    preferences:"Einstellungen", preferencesDesc:"Passe die Sprache der App an.",
     language:"Sprache", themeLabel:"Design", theme:"Design",
     light:"Hell", dark:"Dunkel", system:"System",
     notifications:"Benachrichtigungen", notificationsDesc:"Wähle, worüber du benachrichtigt wirst.",
@@ -41,7 +50,16 @@ const dict = {
     danger:"Gefahrenzone", dangerDesc:"Unumkehrbare Aktionen.",
     deleteAccount:"Konto löschen", saved:"Einstellungen gespeichert",
     startseite:"Startseite", termine:"Termine", projects:"Projekte", dashboard:"Dashboard",
-    create:"Erstellen", todo:"Todo-Liste", profile:"Profil", kalendar:"Kalender"
+    create:"Erstellen", todo:"Todo-Liste", profile:"Profil", kalendar:"Kalender",
+    datenschutz:"Datenschutz", impressum:"Impressum", contact:"Kontakt", about:"Über mich",
+    help:"Hilfe", feedback:"Feedback", terms:"Nutzungsbedingungen", cookies:"Cookie-Richtlinie",
+    support:"Support", faq:"FAQ", legal:"Rechtliches", copyright:"© 2026 Paul.Haider Alle Rechte vorbehalten.",
+    project:"Projekt", folder:"Ordner", document:"Dokument", work:"Arbeit", school:"Schule",
+    private:"Privat", other:"Sonstiges",
+    welcomeMessage:"Willkommen auf der Startseite! Du hast heute 1 Aufgabe zu erledigen. Viel Erfolg!", noAppointmentsToday:"Heute stehen keine Termine an.",
+    mo:"Mo", di:"Di", mi:"Mi", do:"Do", fr:"Fr", sa:"Sa", so:"So",
+    addAppointment:"Neuer Termin", date:"Datum", time:"Uhrzeit", title:"Titel", description:"Beschreibung", category:"Kategorie",
+    upcomingAppointments:"Kommende Termine", cancel:"Abbrechen", prev:"Vorher", next:"Nächste"
   },
   es: {
     settings:"Configuración", settingsDesc:"Administra tu cuenta y preferencias.",
@@ -60,7 +78,16 @@ const dict = {
     danger:"Zona de peligro", dangerDesc:"Acciones irreversibles.",
     deleteAccount:"Eliminar cuenta", saved:"Guardado",
     startseite:"Inicio", termine:"Citas", projects:"Proyectos", dashboard:"Panel",
-    create:"Crear", todo:"Lista", profile:"Perfil", kalendar:"Calendario"
+    create:"Crear", todo:"Lista", profile:"Perfil", kalendar:"Calendario",
+    datenschutz:"Privacidad", impressum:"Aviso Legal", contact:"Contacto", about:"Acerca de mí",
+    help:"Ayuda", feedback:"Comentarios", terms:"Términos de Servicio", cookies:"Política de Cookies",
+    support:"Soporte", faq:"Preguntas Frecuentes", legal:"Legal", copyright:"© 2026 Paul.Haider Todos los derechos reservados.",
+    project:"Proyecto", folder:"Carpeta", document:"Documento", work:"Trabajo", school:"Escuela",
+    private:"Privado", other:"Otro",
+    welcomeMessage:"¡Bienvenido a la página de inicio! Tienes 1 tarea para completar hoy. ¡Buena suerte!", noAppointmentsToday:"No hay citas hoy.",
+    mo:"Lun", di:"Mar", mi:"Mié", do:"Jue", fr:"Vie", sa:"Sab", so:"Dom",
+    addAppointment:"Nueva Cita", date:"Fecha", time:"Hora", title:"Título", description:"Descripción", category:"Categoría",
+    upcomingAppointments:"Próximas Citas", cancel:"Cancelar", prev:"Anterior", next:"Siguiente"
   },
   fr: {
     settings:"Paramètres", settingsDesc:"Gérez votre compte et préférences.",
@@ -79,7 +106,16 @@ const dict = {
     danger:"Zone dangereuse", dangerDesc:"Actions irréversibles.",
     deleteAccount:"Supprimer le compte", saved:"Enregistré",
     startseite:"Accueil", termine:"Rendez-vous", projects:"Projets", dashboard:"Tableau de bord",
-    create:"Créer", todo:"Liste", profile:"Profil", kalendar:"Calendrier"
+    create:"Créer", todo:"Liste", profile:"Profil", kalendar:"Calendrier",
+    datenschutz:"Confidentialité", impressum:"Mentions Légales", contact:"Contact", about:"À propos de moi",
+    help:"Aide", feedback:"Commentaires", terms:"Conditions d'utilisation", cookies:"Politique de Cookies",
+    support:"Support", faq:"FAQ", legal:"Mentions Légales", copyright:"© 2026 Paul.Haider Tous droits réservés.",
+    project:"Projet", folder:"Dossier", document:"Document", work:"Travail", school:"École",
+    private:"Privé", other:"Autre",
+    welcomeMessage:"Bienvenue sur la page d'accueil ! Vous avez 1 tâche à accomplir aujourd'hui. Bonne chance !", noAppointmentsToday:"Aucun rendez-vous aujourd'hui.",
+    mo:"Lun", di:"Mar", mi:"Mer", do:"Jeu", fr:"Ven", sa:"Sam", so:"Dim",
+    addAppointment:"Nouveau Rendez-vous", date:"Date", time:"Heure", title:"Titre", description:"Description", category:"Catégorie",
+    upcomingAppointments:"Rendez-vous à Venir", cancel:"Annuler", prev:"Précédent", next:"Suivant"
   },
   pt: {
     settings:"Configurações", settingsDesc:"Gerencie sua conta e preferências.",
@@ -98,7 +134,16 @@ const dict = {
     danger:"Zona de perigo", dangerDesc:"Ações irreversíveis.",
     deleteAccount:"Excluir conta", saved:"Salvo",
     startseite:"Início", termine:"Compromissos", projects:"Projetos", dashboard:"Painel",
-    create:"Criar", todo:"Lista", profile:"Perfil", kalendar:"Calendário"
+    create:"Criar", todo:"Lista", profile:"Perfil", kalendar:"Calendário",
+    datenschutz:"Privacidade", impressum:"Aviso Legal", contact:"Contato", about:"Sobre mim",
+    help:"Ajuda", feedback:"Comentários", terms:"Termos de Serviço", cookies:"Política de Cookies",
+    support:"Suporte", faq:"Perguntas Frequentes", legal:"Legal", copyright:"© 2026 Paul.Haider Todos os direitos reservados.",
+    project:"Projeto", folder:"Pasta", document:"Documento", work:"Trabalho", school:"Escola",
+    private:"Privado", other:"Outro",
+    welcomeMessage:"Bem-vindo à página inicial! Você tem 1 tarefa para concluir hoje. Boa sorte!", noAppointmentsToday:"Nenhum compromisso hoje.",
+    mo:"Seg", di:"Ter", mi:"Qua", do:"Qui", fr:"Sex", sa:"Sab", so:"Dom",
+    addAppointment:"Novo Compromisso", date:"Data", time:"Hora", title:"Título", description:"Descrição", category:"Categoria",
+    upcomingAppointments:"Próximos Compromissos", cancel:"Cancelar", prev:"Anterior", next:"Próximo"
   }
 };
 
@@ -109,42 +154,8 @@ function applyLang(lang) {
     const key = el.getAttribute("data-t");
     if (d[key]) el.textContent = d[key];
   });
-  const titleEl = document.querySelector("title[data-t]");
-  if (titleEl) {
-    const tk = titleEl.getAttribute("data-t");
-    if (d[tk]) titleEl.textContent = d[tk];
-  }
   document.documentElement.setAttribute("lang", lang);
   localStorage.setItem("lang", lang);
-}
-
-/* -------- Theme (Settings select + pages with themeMode in localStorage) -------- */
-let _systemThemeMq;
-function applyTheme(mode) {
-  const m = mode === "dark" || mode === "light" || mode === "system" ? mode : "light";
-  if (localStorage.getItem("darkmode") === "null") localStorage.removeItem("darkmode");
-  localStorage.setItem("themeMode", m);
-  const sysDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const dark = m === "dark" || (m === "system" && sysDark);
-  document.body.classList.toggle("darkmode", dark);
-  document.documentElement.classList.remove("lightmode", "darkmode");
-  document.documentElement.classList.add(dark ? "darkmode" : "lightmode");
-  if (dark) localStorage.setItem("darkmode", "active");
-  else localStorage.removeItem("darkmode");
-  if (m === "system") {
-    if (!_systemThemeMq) {
-      _systemThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
-      _systemThemeMq.addEventListener("change", () => {
-        if (localStorage.getItem("themeMode") === "system") applyTheme("system");
-      });
-    }
-  }
-}
-
-function getInitialThemeMode() {
-  const stored = localStorage.getItem("themeMode");
-  if (stored === "light" || stored === "dark" || stored === "system") return stored;
-  return localStorage.getItem("darkmode") === "active" ? "dark" : "light";
 }
 
 /* -------- Sidebar -------- */
@@ -172,6 +183,18 @@ function toggleSubMenu(btn) {
   }
 }
 
+/* -------- Theme -------- */
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("themeMode", theme);
+}
+
+function toggleTheme() {
+  const current = localStorage.getItem("themeMode") || "light";
+  const newTheme = current === "light" ? "dark" : "light";
+  applyTheme(newTheme);
+}
+
 /* -------- Toast -------- */
 function showToast(key = "saved") {
   const t = document.getElementById("toast");
@@ -185,36 +208,33 @@ function showToast(key = "saved") {
 
 /* -------- Init on load -------- */
 document.addEventListener("DOMContentLoaded", () => {
-  // Initial language (all pages that include this script)
-  // Check both 'lang' and 'language' keys for compatibility with translations.js
-  const savedLang = localStorage.getItem("lang") || localStorage.getItem("language") || "en";
-  applyLang(savedLang);
+  // Initial language
+  const savedLang = localStorage.getItem("lang") || "en";
   
-  // Sync sidebar language selector if it exists (from translations.js)
-  const sidebarSelector = document.getElementById("language-select");
-  if (sidebarSelector) {
-    sidebarSelector.value = savedLang;
+  // If setLanguage (from translations.js) is available, use it for synchronization
+  if (typeof setLanguage !== 'undefined') {
+    setLanguage(savedLang);
+  } else {
+    applyLang(savedLang);
   }
   
   const langSel = document.getElementById("lang");
   if (langSel) {
     langSel.value = savedLang;
-    langSel.addEventListener("change", e => {
-      const newLang = e.target.value;
-      applyLang(newLang);
-      // Also sync the sidebar selector
-      if (sidebarSelector) {
-        sidebarSelector.value = newLang;
-      }
-      // Also set the translations.js language key for cross-compatibility
-      if (typeof setLanguage === 'function') {
-        setLanguage(newLang);
-      }
-    });
+    // Only set change event if it doesn't have onchange handler already
+    if (!langSel.hasAttribute('onchange')) {
+      langSel.addEventListener("change", e => {
+        if (typeof setLanguage !== 'undefined') {
+          setLanguage(e.target.value);
+        } else {
+          applyLang(e.target.value);
+        }
+      });
+    }
   }
 
-  // Theme from Settings (themeMode) — keeps body/html classes in sync with darkmod.js
-  const savedTheme = getInitialThemeMode();
+  // Initial theme
+  const savedTheme = localStorage.getItem("themeMode") || "light";
   applyTheme(savedTheme);
   const themeSel = document.getElementById("theme");
   if (themeSel) {
@@ -223,17 +243,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-window.addEventListener("storage", e => {
-  if (e.key === "lang" && e.newValue) {
-    applyLang(e.newValue);
-    const langSel = document.getElementById("lang");
-    if (langSel) langSel.value = e.newValue;
-  }
-});
-
 // Expose for inline onclick handlers
 window.toggleSidebar = toggleSidebar;
 window.toggleSubMenu = toggleSubMenu;
-window.applyLang     = applyLang;
-window.applyTheme    = applyTheme;
+window.toggleTheme   = toggleTheme;
 window.showToast     = showToast;

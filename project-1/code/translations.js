@@ -2,22 +2,33 @@
 const translations = {
   de: {
     dashboard: "Dashboard",
-    startseite: "startseite",
-    termine: "termine",
-    projects: "Projects",
-    profile: "Profile",
-    kalendar: "Kalendar",
+    startseite: "Startseite",
+    termine: "Termine",
+    projects: "Projekte",
+    profile: "Profil",
+    kalendar: "Kalender",
     settings: "Einstellungen",
-    create: "Create",
-    todo: "Todo-list",
-    project: "project",
-    folder: "folder",
-    document: "document",
-    work: "Work",
-    school: "School",
-    private: "Private",
-    other: "Other"
-    
+    create: "Erstellen",
+    todo: "Todo-Liste",
+    project: "Projekt",
+    folder: "Ordner",
+    document: "Dokument",
+    work: "Arbeit",
+    school: "Schule",
+    private: "Privat",
+    other: "Sonstiges",
+    datenschutz: "Datenschutz",
+    impressum: "Impressum",
+    contact: "Kontakt",
+    about: "Über mich",
+    help: "Hilfe",
+    feedback: "Feedback",
+    terms: "Nutzungsbedingungen",
+    cookies: "Cookie-Richtlinie",
+    support: "Support",
+    faq: "FAQ",
+    legal: "Rechtliches",
+    copyright: "© 2026 Paul.Haider Alle Rechte vorbehalten."
   },
   en: {
     dashboard: "Dashboard",
@@ -35,7 +46,19 @@ const translations = {
     work: "Work",
     school: "School",
     private: "Private",
-    other: "Other"
+    other: "Other",
+    datenschutz: "Privacy",
+    impressum: "Imprint",
+    contact: "Contact",
+    about: "About Me",
+    help: "Help",
+    feedback: "Feedback",
+    terms: "Terms of Service",
+    cookies: "Cookie Policy",
+    support: "Support",
+    faq: "FAQ",
+    legal: "Legal",
+    copyright: "© 2026 Paul.Haider All rights reserved."
   },
   es: {
     dashboard: "Panel de Control",
@@ -53,7 +76,19 @@ const translations = {
     work: "Trabajo",
     school: "Escuela",
     private: "Privado",
-    other: "Otro"
+    other: "Otro",
+    datenschutz: "Privacidad",
+    impressum: "Aviso Legal",
+    contact: "Contacto",
+    about: "Acerca de mí",
+    help: "Ayuda",
+    feedback: "Comentarios",
+    terms: "Términos de Servicio",
+    cookies: "Política de Cookies",
+    support: "Soporte",
+    faq: "Preguntas Frecuentes",
+    legal: "Legal",
+    copyright: "© 2026 Paul.Haider Todos los derechos reservados."
   },
   fr: {
     dashboard: "Tableau de Bord",
@@ -71,7 +106,19 @@ const translations = {
     work: "Travail",
     school: "École",
     private: "Privé",
-    other: "Autre"
+    other: "Autre",
+    datenschutz: "Confidentialité",
+    impressum: "Mentions Légales",
+    contact: "Contact",
+    about: "À propos de moi",
+    help: "Aide",
+    feedback: "Commentaires",
+    terms: "Conditions d'utilisation",
+    cookies: "Politique de Cookies",
+    support: "Support",
+    faq: "FAQ",
+    legal: "Mentions Légales",
+    copyright: "© 2026 Paul.Haider Tous droits réservés."
   },
   pt: {
     dashboard: "Painel",
@@ -89,7 +136,19 @@ const translations = {
     work: "Trabalho",
     school: "Escola",
     private: "Privado",
-    other: "Outro"
+    other: "Outro",
+    datenschutz: "Privacidade",
+    impressum: "Aviso Legal",
+    contact: "Contato",
+    about: "Sobre mim",
+    help: "Ajuda",
+    feedback: "Comentários",
+    terms: "Termos de Serviço",
+    cookies: "Política de Cookies",
+    support: "Suporte",
+    faq: "Perguntas Frequentes",
+    legal: "Legal",
+    copyright: "© 2026 Paul.Haider Todos os direitos reservados."
   }
 };
 
@@ -106,10 +165,16 @@ function setLanguage(lang) {
     updatePageTranslations();
     updateLanguageSelector();
     
-    // Also sync the settings page language dropdown if it exists
+    // Sync the settings page language dropdown if it exists
     const settingsLangDropdown = document.getElementById("lang");
     if (settingsLangDropdown) {
       settingsLangDropdown.value = lang;
+    }
+    
+    // Sync the fixed language selector on other pages if it exists
+    const fixedSelector = document.getElementById('language-select');
+    if (fixedSelector) {
+      fixedSelector.value = lang;
     }
   }
 }
@@ -156,10 +221,16 @@ document.addEventListener('DOMContentLoaded', function() {
   updatePageTranslations();
   updateLanguageSelector();
   
-  // Also sync the settings page language dropdown if it exists
+  // Sync the settings page language dropdown if it exists
   const settingsLangDropdown = document.getElementById("lang");
   if (settingsLangDropdown) {
     settingsLangDropdown.value = currentLanguage;
+  }
+  
+  // Sync the fixed language selector if it exists
+  const fixedSelector = document.getElementById('language-select');
+  if (fixedSelector) {
+    fixedSelector.value = currentLanguage;
   }
 });
 
