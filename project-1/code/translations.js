@@ -1,4 +1,29 @@
-// Translation Dictionary
+/**
+ * Multi-Language Translation System
+ * ================================
+ * Manages translations for 5 languages: German, English, Spanish, French, Portuguese
+ * 
+ * Features:
+ * - Centralized translation dictionary
+ * - Dynamic language switching
+ * - localStorage persistence
+ * - Automatic page translation updates
+ * - Sidebar language selector sync
+ * 
+ * Usage:
+ * 1. Add data-t="key" attribute to HTML elements you want to translate
+ * 2. Call setLanguage(langCode) to switch language
+ * 3. Language preference is automatically saved to localStorage
+ * 
+ * Supported Languages:
+ * - 'de': Deutsch (German) - DEFAULT
+ * - 'en': English
+ * - 'es': Español (Spanish)
+ * - 'fr': Français (French)
+ * - 'pt': Português (Portuguese)
+ */
+
+// ==================== TRANSLATION DICTIONARY ====================
 const translations = {
   de: {
     dashboard: "Dashboard",
@@ -327,34 +352,66 @@ const translations = {
   }
 };
 
-// Current language (default: German 'de')
+// ==================== STATE MANAGEMENT ====================
+
+/** @type {string} Current active language (default: German) */
 let currentLanguage = localStorage.getItem('language') || 'de';
 
-// Function to set language
+// ==================== CORE FUNCTIONS ====================
+
+/**
+ * Set the active language and update all page translations
+ * Syncs language across all selectors and saves preference
+ * @param {string} lang - Language code ('de', 'en', 'es', 'fr', 'pt')
+ */
 function setLanguage(lang) {
-  if (translations[lang]) {
-    currentLanguage = lang;
-    // Save to both keys for compatibility with settings.js
-    localStorage.setItem('language', lang);
-    localStorage.setItem('lang', lang);
-    updatePageTranslations();
-    updateLanguageSelector();
-    
-    // Sync the settings page language dropdown if it exists
-    const settingsLangDropdown = document.getElementById("lang");
-    if (settingsLangDropdown) {
-      settingsLangDropdown.value = lang;
-    }
-    
-    // Sync the fixed language selector on other pages if it exists
-    const fixedSelector = document.getElementById('language-select');
-    if (fixedSelector) {
-      fixedSelector.value = lang;
-    }
-  }
+  if (!translations[lang]) return;
+
+  currentLanguage = lang;
+  
+  // Persist language preference (both keys for compatibility)
+  localStorage.setItem('language', lang);
+  localStorage.setItem('lang', lang);
+  
+  // Update all page content
+  updatePageTranslations();
+  updateLanguageSelector();
+  syncSettingsDropdown();
 }
 
-// Function to update language selector
+/**
+ * Get translation for a specific key
+ * Falls back to key name if translation not found
+ * @param {string} key - Translation key
+ * @returns {string} Translated text or key name
+ */
+function getTranslation(key) {
+  const translations_lang = translations[currentLanguage];
+  return (translations_lang && translations_lang[key]) || key;
+}
+
+/**
+ * Update all HTML elements with data-t attribute
+ * Handles different element types (title, text content, etc.)
+ */
+function updatePageTranslations() {
+  const elements = document.querySelectorAll('[data-t]');
+  
+  elements.forEach(el => {
+    const key = el.getAttribute('data-t');
+    const translation = getTranslation(key);
+    
+    if (el.tagName === 'TITLE') {
+      document.title = translation;
+    } else {
+      el.textContent = translation;
+    }
+  });
+}
+
+/**
+ * Sync sidebar language selector with current language
+ */
 function updateLanguageSelector() {
   const selector = document.getElementById('language-select');
   if (selector) {
@@ -362,59 +419,43 @@ function updateLanguageSelector() {
   }
 }
 
-// Function to get translation
-function getTranslation(key) {
-  if (translations[currentLanguage] && translations[currentLanguage][key]) {
-    return translations[currentLanguage][key];
+/**
+ * Sync settings page language dropdown with current language
+ */
+function syncSettingsDropdown() {
+  const dropdown = document.getElementById('lang');
+  if (dropdown) {
+    dropdown.value = currentLanguage;
   }
-  return key; // Return key if translation not found
 }
 
-// Function to update all translations on page
-function updatePageTranslations() {
-  const elements = document.querySelectorAll('[data-t]');
-  elements.forEach(el => {
-    const key = el.getAttribute('data-t');
-    const translation = getTranslation(key);
-    if (el.tagName === 'TITLE') {
-      document.title = translation;
-    } else if (el.tagName === 'SPAN' || el.tagName === 'BUTTON' || el.tagName === 'A') {
-      el.textContent = translation;
-    } else {
-      el.textContent = translation;
-    }
-  });
+/**
+ * Get list of all available language codes
+ * @returns {string[]} Array of language codes
+ */
+function getAvailableLanguages() {
+  return Object.keys(translations);
 }
 
-// Initialize translations on page load
+/**
+ * Get current active language
+ * @returns {string} Current language code
+ */
+function getCurrentLanguage() {
+  return currentLanguage;
+}
+
+// ==================== INITIALIZATION ====================
+
 document.addEventListener('DOMContentLoaded', function() {
-  // Check both 'language' and 'lang' keys for compatibility
+  // Restore saved language preference or use default
   const savedLang = localStorage.getItem('language') || localStorage.getItem('lang');
   if (savedLang && translations[savedLang]) {
     currentLanguage = savedLang;
   }
+  
+  // Apply translations on page load
   updatePageTranslations();
   updateLanguageSelector();
-  
-  // Sync the settings page language dropdown if it exists
-  const settingsLangDropdown = document.getElementById("lang");
-  if (settingsLangDropdown) {
-    settingsLangDropdown.value = currentLanguage;
-  }
-  
-  // Sync the fixed language selector if it exists
-  const fixedSelector = document.getElementById('language-select');
-  if (fixedSelector) {
-    fixedSelector.value = currentLanguage;
-  }
+  syncSettingsDropdown();
 });
-
-// Optional: Language selector function
-function getAvailableLanguages() {
-  return ['de', 'en', 'es', 'fr', 'pt'];
-}
-
-// Optional: Get current language
-function getCurrentLanguage() {
-  return currentLanguage;
-}
