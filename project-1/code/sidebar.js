@@ -1,9 +1,25 @@
-const toggleBtn = document.getElementById ('toggle-btn');
-const sidebar = document.getElementById ('sidebar');
+let toggleBtn;
+let sidebar;
+
+// Initialize on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+    toggleBtn = document.getElementById('toggle-btn');
+    sidebar = document.getElementById('sidebar');
+    
+    // Restore sidebar state from localStorage
+    const sidebarClosed = localStorage.getItem('sidebarClosed') === 'true';
+    if (sidebarClosed && sidebar) {
+        sidebar.classList.add('close');
+    }
+});
 
 function toggleSidebar() {
-    sidebar.classList.toggle('close');
-
+    if (!sidebar) sidebar = document.getElementById('sidebar');
+    
+    sidebar.classList.toggle('close'); 
+    // Save sidebar state to localStorage
+    localStorage.setItem('sidebarClosed', sidebar.classList.contains('close'));
+    
     // Close all dropdown menus when sidebar closes
     if (sidebar.classList.contains('close')) {
         const subMenus = document.querySelectorAll('.sub-menu');

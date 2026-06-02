@@ -28,7 +28,8 @@ const translations = {
     support: "Support",
     faq: "FAQ",
     legal: "Rechtliches",
-    copyright: "© 2026 Paul.Haider Alle Rechte vorbehalten."
+    copyright: "© 2026 Paul.Haider Alle Rechte vorbehalten.",
+    
   },
   en: {
     dashboard: "Dashboard",
