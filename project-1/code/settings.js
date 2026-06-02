@@ -1,9 +1,19 @@
-/* ============================================================
-   settings.js — sidebar, theme, i18n, and settings interactions
-   Include on every page with: <script src="settings.js" defer></script>
-   ============================================================ */
+/**
+ * Settings and Preferences Module
+ * ================================
+ * Manages:
+ * - Language selection and synchronization
+ * - Theme (dark/light mode) preferences
+ * - Sidebar interactions
+ * - Toast notifications
+ * 
+ * Note: This module works alongside translations.js
+ * Include on every page with: <script src="settings.js" defer></script>
+ */
 
-/* -------- Translation dictionary -------- */
+// ==================== TRANSLATION DICTIONARY ====================
+// Backup dictionary for settings page and theme options
+// Primary translations are in translations.js
 const dict = {
   en: {
     settings:"Settings", settingsDesc:"Manage your account, preferences, and notifications.",
@@ -147,7 +157,12 @@ const dict = {
   }
 };
 
-/* -------- i18n -------- */
+// ==================== LANGUAGE MANAGEMENT ====================
+
+/**
+ * Apply language translations to all data-t elements
+ * @param {string} lang - Language code
+ */
 function applyLang(lang) {
   const d = dict[lang] || dict.en;
   document.querySelectorAll("[data-t]").forEach(el => {
@@ -158,72 +173,63 @@ function applyLang(lang) {
   localStorage.setItem("lang", lang);
 }
 
-/* -------- Sidebar -------- */
-function toggleSidebar() {
-  const sb = document.getElementById("sidebar");
-  if (!sb) return;
-  sb.classList.toggle("close");
-  sb.classList.toggle("expanded");
-  document.querySelectorAll("#sidebar .sub-menu.show")
-    .forEach(s => { s.classList.remove("show"); s.previousElementSibling?.classList.remove("rotate"); });
-}
-function toggleSubMenu(btn) {
-  const menu = btn.nextElementSibling;
-  if (!menu) return;
-  if (!menu.classList.contains("show")) {
-    document.querySelectorAll("#sidebar .sub-menu.show")
-      .forEach(s => { s.classList.remove("show"); s.previousElementSibling?.classList.remove("rotate"); });
-  }
-  menu.classList.toggle("show");
-  btn.classList.toggle("rotate");
-  const sb = document.getElementById("sidebar");
-  if (sb?.classList.contains("close")) {
-    sb.classList.remove("close");
-    sb.classList.add("expanded");
-  }
-}
+// ==================== THEME MANAGEMENT ====================
 
-/* -------- Theme -------- */
+/**
+ * Apply theme preference
+ * @param {string} theme - Theme mode ('light' or 'dark')
+ */
 function applyTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
   localStorage.setItem("themeMode", theme);
 }
 
+/**
+ * Toggle between light and dark theme
+ */
 function toggleTheme() {
   const current = localStorage.getItem("themeMode") || "light";
   const newTheme = current === "light" ? "dark" : "light";
   applyTheme(newTheme);
 }
 
-/* -------- Toast -------- */
+// ==================== NOTIFICATIONS ====================
+
+/**
+ * Show toast notification
+ * @param {string} key - Translation key for message
+ */
 function showToast(key = "saved") {
-  const t = document.getElementById("toast");
-  if (!t) return;
+  const toast = document.getElementById("toast");
+  if (!toast) return;
+  
   const lang = localStorage.getItem("lang") || "en";
-  t.textContent = (dict[lang] && dict[lang][key]) || dict.en[key] || "Saved";
-  t.classList.add("show");
-  clearTimeout(showToast._t);
-  showToast._t = setTimeout(() => t.classList.remove("show"), 1800);
+  const message = (dict[lang] && dict[lang][key]) || dict.en[key] || "Saved";
+  
+  toast.textContent = message;
+  toast.classList.add("show");
+  
+  clearTimeout(showToast._timeout);
+  showToast._timeout = setTimeout(() => toast.classList.remove("show"), 1800);
 }
 
-/* -------- Init on load -------- */
+// ==================== INITIALIZATION ====================
+
 document.addEventListener("DOMContentLoaded", () => {
-  // Initial language
+  // Initialize language
   const savedLang = localStorage.getItem("lang") || "en";
   
-  // If setLanguage (from translations.js) is available, use it for synchronization
   if (typeof setLanguage !== 'undefined') {
     setLanguage(savedLang);
   } else {
     applyLang(savedLang);
   }
   
-  const langSel = document.getElementById("lang");
-  if (langSel) {
-    langSel.value = savedLang;
-    // Only set change event if it doesn't have onchange handler already
-    if (!langSel.hasAttribute('onchange')) {
-      langSel.addEventListener("change", e => {
+  const langSelector = document.getElementById("lang");
+  if (langSelector) {
+    langSelector.value = savedLang;
+    if (!langSelector.hasAttribute('onchange')) {
+      langSelector.addEventListener("change", e => {
         if (typeof setLanguage !== 'undefined') {
           setLanguage(e.target.value);
         } else {
@@ -233,18 +239,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Initial theme
+  // Initialize theme
   const savedTheme = localStorage.getItem("themeMode") || "light";
   applyTheme(savedTheme);
-  const themeSel = document.getElementById("theme");
-  if (themeSel) {
-    themeSel.value = savedTheme;
-    themeSel.addEventListener("change", e => applyTheme(e.target.value));
+  
+  const themeSelector = document.getElementById("theme");
+  if (themeSelector) {
+    themeSelector.value = savedTheme;
+    themeSelector.addEventListener("change", e => applyTheme(e.target.value));
   }
 });
 
-// Expose for inline onclick handlers
+// ==================== GLOBAL EXPORTS ====================
+
+// Expose functions for inline event handlers
 window.toggleSidebar = toggleSidebar;
 window.toggleSubMenu = toggleSubMenu;
-window.toggleTheme   = toggleTheme;
-window.showToast     = showToast;
+window.toggleTheme = toggleTheme;
+window.showToast = showToast;
