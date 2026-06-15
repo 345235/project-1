@@ -13,6 +13,7 @@
     <script src="sidebar.js" type="text/javascript" defer></script>
     <script src="settings.js" type="text/javascript" defer></script>
     <script src="kalender.js" type="text/javascript" defer></script>
+    <script src="calendar-sync.js" type="text/javascript" defer></script>
     <style>
         .calendar-container {
             display: flex;
@@ -469,6 +470,7 @@
                     <button onclick="previousMonth()" id="prevBtn">← <span data-t="prev">Vorher</span></button>
                     <div id="monthYear" style="min-width: 150px; text-align: center; font-weight: bold;"></div>
                     <button onclick="nextMonth()" id="nextBtn"><span data-t="next">Nächste</span> →</button>
+                    <button id="syncBtn" class="btn btn-secondary" style="margin-left:8px" onclick="startSync()">Sync</button>
                 </div>
             </div>
 
