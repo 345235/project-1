@@ -142,7 +142,30 @@
 </ul>
     </nav>
     <main>
-    
+    <section class="card">
+        <h2>👤 <span data-t="account">Konto</span></h2>
+        <p class="desc" data-t="accountDesc">Aktualisiere deine persönlichen Daten.</p>
+        <div class="field">
+          <label data-t="name">Name</label>
+          <input type="text" value="Jane Doe">
+        </div>
+        <div class="field">
+          <label data-t="email">E-Mail</label>
+          <input type="email" value="jane@example.com">
+        </div>
+        
+      <div class="field">
+          <label data-t="language">Sprache</label>
+          <select id="lang" onchange="setLanguage(this.value)">
+            <option value="en">English</option>
+            <option value="de">Deutsch</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="pt">Português</option>
+          </select>
+        </div>
+        <button class="action btn-primary" onclick="showToast()" data-t="save">Speichern</button>
+      </section>
     
     
     
