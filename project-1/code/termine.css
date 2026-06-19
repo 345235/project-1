@@ -463,18 +463,7 @@ text-align: center;
 }
 
 
- @media (max-width: 600px) {
-    .body {
-        display: grid;
-        grid-template-columns: 1fr;
-    }
-    .main{
-        padding: 2em 1em 60px 1em;
-    }
-    .container {
-        padding: 0;
-        border: none;
-    }
+
 #sidebar {
     height: 60px;
     width: 100%;
@@ -487,7 +476,7 @@ text-align: center;
 
 
 }
- }
+ 
 .info-section {
     display: flex;
     flex-wrap: wrap;
@@ -710,13 +699,7 @@ button.action {
 .toast.show { opacity: 1; }
 
 
-@media (max-width: 640px) {
-    .content { padding: 20px 14px; }
-    .inline { flex-direction: column; align-items: stretch; }
-    .inline select { max-width: 100%; flex: 1 1 auto; }
-    .row { flex-direction: column; align-items: flex-start; }
-    .card { padding: 16px; }
-}
+ 
 
 .welcome-message {
     text-align: center;
@@ -765,4 +748,16 @@ button.action {
     text-align: center;
     font-size: 35px; 
     margin-bottom: 45px; 
+  }
+  .add.appointment {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--primary-color);
+    color: var(--theme-color);
+    border: none;
+    border-radius: 8px;
+    padding: 4px 2px;
+    cursor: pointer;
+    font-size: 14px;
   }

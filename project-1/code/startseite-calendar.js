@@ -1,18 +1,8 @@
-/**
- * Mini Calendar Module for Homepage
- * ==================================
- * Displays an interactive calendar on the startseite (home) page
- * Supports multi-language month names
- * Highlights current day
- * Navigation buttons to browse months
- */
 
-// ==================== STATE ====================
 
 /** @type {Date} Currently displayed month */
 let currentMonthStartseite = new Date();
 
-// Month names in English and German for calendar display
 const MONTH_NAMES_EN = [
   'January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December'
@@ -85,10 +75,8 @@ function renderStartseiteCalendar() {
 }
 
 /**
- * Render the day grid for a specific month
- * Includes days from previous and next month for complete grid
- * @param {number} year - Full year (e.g., 2024)
- * @param {number} month - Month number (0-11)
+ * @param {number} year 
+ * @param {number} month 
  */
 function renderDayGrid(year, month) {
   const firstDay = new Date(year, month, 1).getDay();
@@ -100,13 +88,13 @@ function renderDayGrid(year, month) {
 
   datesDiv.innerHTML = '';
 
-  // Previous month's days (filler)
+ 
   for (let i = firstDay - 1; i >= 0; i--) {
     const date = createDateElement(daysInPrevMonth - i, 'other-month');
     datesDiv.appendChild(date);
   }
 
-  // Current month's days
+  
   const today = new Date();
   for (let i = 1; i <= daysInMonth; i++) {
     const date = createDateElement(i, 'date');
