@@ -12,29 +12,20 @@ Your website now has a complete multi-language translation system supporting:
 ## 📁 New Files Created
 
 1. **translations.js** - Main translation library with all dictionary entries
-2. **language-selector.html** - Reusable language selector component
-3. **TRANSLATION_GUIDE.md** - This file
+2. **TRANSLATION_GUIDE.md** - This file
 
 ## 🚀 How to Use
 
-### Option 1: Add Language Selector to Your Pages
+### Option 1: Programmatic Language Switching (preferred)
 
-Add this snippet to any HTML file where you want the language selector to appear (recommended in header or top-right):
+Add the ability to change language from code instead of embedding a selector UI in every page. Use:
 
-```html
-<!-- Add this in your <body> or <main> section -->
-<iframe src="language-selector.html" style="border:none; width:auto; height:auto;"></iframe>
-
-<!-- Or embed the selector directly -->
-<div class="language-selector">
-  <select id="language-select" onchange="setLanguage(this.value)">
-    <option value="de">Deutsch</option>
-    <option value="en">English</option>
-    <option value="es">Español</option>
-    <option value="fr">Français</option>
-    <option value="pt">Português</option>
-  </select>
-</div>
+```javascript
+// Switch language
+setLanguage('en');  // English
+setLanguage('es');  // Spanish
+// Get current language
+const currentLang = getCurrentLanguage();
 ```
 
 ### Option 2: Programmatic Language Switching
@@ -151,7 +142,7 @@ Language preference is saved locally on each device.
 
 **Want to remove a language?**
 - Edit `translations.js` and remove that language object
-- Update `language-selector.html` to remove that option
+- Remove any selector markup from your pages (the standalone `language-selector.html` component was removed)
 
 ## 💡 Tips
 
