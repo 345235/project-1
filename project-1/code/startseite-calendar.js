@@ -50,12 +50,7 @@ function attachEventListeners() {
   }
 }
 
-// ==================== CALENDAR RENDERING ====================
 
-/**
- * Render the calendar view for the current month
- * Updates month display, renders day grid, highlights today
- */
 function renderStartseiteCalendar() {
   const year = currentMonthStartseite.getFullYear();
   const month = currentMonthStartseite.getMonth();

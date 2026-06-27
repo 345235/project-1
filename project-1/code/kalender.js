@@ -5,7 +5,7 @@
 let currentDate = new Date();
 let appointments = [];
 
-// Initialize on page load
+
 document.addEventListener('DOMContentLoaded', () => {
     loadAppointments();
     renderCalendar();
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     applyLang(localStorage.getItem('lang') || 'en');
 });
 
-// Load appointments from localStorage
+
 function loadAppointments() {
     const stored = localStorage.getItem('appointments');
     appointments = stored ? JSON.parse(stored) : [];

@@ -224,7 +224,7 @@ html{
 
 
     .date {
-        width: 18px;
+        width: 12px;
         height: 9px;
         padding: 8px;
     }
@@ -242,19 +242,20 @@ html{
 }
 
 .date.inactive {
-    color: #cccccc;
+    color: #926060;
     cursor: pointer;
 }
 
 .date.inactive:hover {
-    background-color: #ff6f7d;
+    background-color: #d4626d;
     color: #797878;
+    cursor: pointer;
 }
 
 .date.other-month {
     color: #bbb;
     background-color: transparent;
-    cursor: default;
+    cursor: pointer;
 }
 
 .date.other-month:hover {

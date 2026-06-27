@@ -1,0 +1,75 @@
+.title {
+    color: #333;
+    font-size: 2em;
+    margin-bottom: 0.5em;
+    text-align: center;
+}
+
+.description {
+    color: #666;
+    font-size: 1.2em;
+    text-align: center;
+}
+.container-title {
+    background-color: #a6b24f;
+    padding: 20px;
+    border-radius: 5px;
+    align-items: center;
+}
+
+.background {
+    background-color: #9db382;
+    min-height: 100vh;
+    justify-content: center;
+    display: flex;
+    
+}
+.timer {
+ margin-bottom: 20px;
+border-style: solid;
+box-sizing: content-box;
+
+
+}
+.session {
+    text-align: center;
+
+
+}
+.podotimer {
+    border-style: solid;
+    border-radius: 5px;
+    margin-top: 30px;               
+}
+.timer-text {
+    color: #333;
+    text-align:center;
+    margin-bottom: 10px;
+    
+}
+
+.brake-text {
+    color: #333;
+    text-align:center;
+    margin-bottom: 10px;
+    
+    
+
+}
+.brake, .timer-length {
+  display: inline-block;
+  vertical-align: middle;
+  width: 48%;
+  box-sizing:content-box;
+  border-style: solid;
+    border-width: 2px;
+    box-sizing:border-box
+}
+
+.stop {
+    height: 50px;
+}
+
+.stop-timer {
+
+}
