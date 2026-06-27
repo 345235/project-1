@@ -21,9 +21,8 @@ Your website now supports multiple languages: **German (Deutsch), English, Spani
 
 **How to Use:**
 
-1. **Add Language Selector** (Optional):
-   - Include the `language-selector.html` in your page to let users switch languages
-   - Or users can set language programmatically by calling: `setLanguage('en')` or `setLanguage('es')`
+1. **Change Language Programmatically**:
+   - Call `setLanguage('en')` or `setLanguage('es')` to switch languages
 
 2. **Add Translatable Text**:
    - Use the `data-t` attribute on HTML elements with the translation key

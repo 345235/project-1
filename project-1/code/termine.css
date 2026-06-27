@@ -353,10 +353,7 @@ padding: 5px;
 width: 60px;
 }
 
-#sidebar.close .sidebar-language-selector {
-    opacity: 0;
-    visibility: hidden;
-}
+/* sidebar language selector rules removed */
 
     
 
@@ -718,32 +715,7 @@ button.action {
     font-weight: 600;
 }
 
-.sidebar-language-selector {
-    display: block;
-    align-items: center;
-    margin-left: 26px;
-   
-  }
-
-  .sidebar-language-selector select {
-    padding: 4px 6px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    background: var(--bg-color, #fff);
-    color: var(--text-color, #000);
-    cursor: pointer;
-    font-size: 11px;
-    width: 60px;
-  }
-
-  .sidebar-language-selector select:hover {
-    border-color: #999;
-  }
-
-  .sidebar-language-selector select:focus {
-    outline: none;
-    border-color: #007bff;
-  }
+/* sidebar language selector styles removed */
 
   .startseite {
     text-align: center;
